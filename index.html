@@ -1,1308 +1,1941 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>sajan k.c. portfolio</title>
-<link rel="icon" href="terminal-logo.ico" type="image/x-icon">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
-<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-<style>
-  :root{
-    --bg:#0a0e0f;
-    --panel:#0e1414;
-    --green:#33ff88;
-    --green-dim:#1f8a52;
-    --amber:#ffb000;
-    --text:#c9d1d9;
-    --comment:#5c6773;
-    --red:#ff5f56;
-    --yellow:#ffbd2e;
-    --blue:#57c7ff;
-    --border:#1c2528;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html,body{ background:var(--bg); color:var(--text); font-family:'JetBrains Mono', monospace; min-height:100%; font-size:15px; }
-  body{ padding:24px 16px 80px; background:#05090d; overflow-x:hidden; }
-  ::selection{ background:var(--green-dim); color:#000; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sajan K.C.</title>
+  <link rel="icon" href="terminal-logo.ico" type="image/x-icon">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    :root {
+      --bg: #0a0e0f;
+      --panel: #0e1414;
+      --green: #33ff88;
+      --green-dim: #1f8a52;
+      --amber: #ffb000;
+      --text: #c9d1d9;
+      --comment: #5c6773;
+      --red: #ff5f56;
+      --yellow: #ffbd2e;
+      --blue: #57c7ff;
+      --border: #1c2528;
+    }
 
-  .crt{ max-width:960px; margin:0 auto; border:1px solid rgba(122,186,255,0.18); border-radius:8px; background:var(--panel);
-    box-shadow: 0 0 0 1px rgba(122,186,255,0.08), 0 20px 60px rgba(0,0,0,0.6), inset 0 0 140px rgba(122,186,255,0.05); overflow:hidden; }
-  .titlebar{ display:flex; align-items:center; gap:8px; padding:10px 14px; background:#111818; border-bottom:1px solid var(--border); }
-  .dot{ width:11px; height:11px; border-radius:50%; }
-  .dot.red{background:var(--red);} .dot.yellow{background:var(--yellow);} .dot.green{background:var(--green-dim);}
-  .titlebar span.label{ margin-left:auto; margin-right:auto; color:var(--comment); font-size:12px; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  .screen{ padding:28px clamp(16px,4vw,48px) 40px; }
+    html,
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      min-height: 100%;
+      font-size: 15px;
+    }
 
-  .prompt{ color:var(--green); font-weight:700; }
-  .prompt .path{ color:var(--blue); }
-  .prompt .sym{ color:var(--comment); }
+    body {
+      padding: 24px 16px 80px;
+      background: #05090d;
+      overflow-x: hidden;
+    }
 
-  .line{ margin-bottom:4px; white-space:pre-wrap; word-break:break-word; }
-  .comment{ color:var(--comment); }
-  .out{ color:var(--text); margin:6px 0 22px; line-height:1.7; }
+    ::selection {
+      background: var(--green-dim);
+      color: #000;
+    }
 
-  section{ margin-bottom:38px; }
+    .crt {
+      max-width: 960px;
+      margin: 0 auto;
+      border: 1px solid rgba(122, 186, 255, 0.18);
+      border-radius: 8px;
+      background: rgba(14, 20, 20, 0.82);
+      backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
+      box-shadow: 0 0 0 1px rgba(122, 186, 255, 0.08), 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 0 140px rgba(122, 186, 255, 0.05);
+      overflow: hidden;
+    }
 
-  .name{ font-size:clamp(26px,5vw,42px); color:var(--green); font-weight:700; letter-spacing:0.5px; }
-  .role{ color:var(--amber); margin-top:4px; font-size:15px; }
-  .meta-row{ display:flex; flex-wrap:wrap; gap:14px; margin-top:12px; font-size:12px; color:var(--comment); }
-  .meta-row a{ color:var(--blue); text-decoration:none; }
-  .meta-row a:hover{ text-decoration:underline; }
-  .cursor{ display:inline-block; width:9px; height:1.1em; background:var(--green); vertical-align:text-bottom; animation:blink 1s steps(1) infinite, pulseCursor 2.2s ease-in-out infinite; box-shadow:0 0 8px rgba(122,186,255,0.28); }
-  @keyframes blink{ 50%{ opacity:0; } }
-  @keyframes pulseCursor{ 0%,100%{ transform:scaleY(1); box-shadow:0 0 8px rgba(122,186,255,0.28); } 50%{ transform:scaleY(1.08); box-shadow:0 0 14px rgba(122,186,255,0.42); } }
+    .titlebar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: rgba(17, 24, 24, 0.86);
+      border-bottom: 1px solid var(--border);
+    }
 
-  .bio p{ max-width:720px; margin-bottom:12px; font-size:13.5px; }
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
 
-  .btnrow{ display:flex; gap:12px; flex-wrap:wrap; margin-top:16px; }
-  #matrix-canvas{ position:fixed; inset:0; z-index:-1; pointer-events:none; background:#020608; opacity:0.96; }
-  .btn{ display:inline-flex; align-items:center; gap:8px; border:1px solid var(--green-dim); color:var(--green);
-    text-decoration:none; padding:10px 16px; border-radius:4px; font-size:13px; background:rgba(122,186,255,0.06);
-    transition:background .15s, transform .15s; cursor:pointer; }
-  .btn:hover{ background:rgba(122,186,255,0.16); transform:translateY(-1px); }
-  .btn.amber{ border-color:var(--amber); color:var(--amber); background:rgba(255,176,0,0.05); }
-  .btn.amber:hover{ background:rgba(255,176,0,0.14); }
+    .dot.red {
+      background: var(--red);
+    }
 
-  /* experience */
-  .exp-list{ margin-top:14px; display:flex; flex-direction:column; gap:24px; }
-  .exp-item{ position:relative; padding-left:22px; border-left:1px solid var(--border); opacity:0; transform:translateY(12px); transition:opacity .45s cubic-bezier(0.22, 1, 0.36, 1), transform .45s cubic-bezier(0.22, 1, 0.36, 1); }
-  .exp-item.visible{ opacity:1; transform:none; }
-  .exp-item::before{ content:""; position:absolute; left:-5px; top:4px; width:9px; height:9px; border-radius:50%;
-    background:var(--green); box-shadow:0 0 6px var(--green); }
-  .exp-head{ display:flex; flex-wrap:wrap; align-items:baseline; gap:8px; }
-  .exp-role{ color:var(--green); font-size:14px; font-weight:700; }
-  .exp-company{ color:var(--blue); font-size:13px; }
-  .exp-dates{ color:var(--comment); font-size:12px; margin-left:auto; }
-  .exp-desc{ margin-top:8px; font-size:13px; line-height:1.7; }
-  .exp-desc li{ list-style:none; position:relative; padding-left:16px; margin-bottom:5px; }
-  .exp-desc li::before{ content:"$"; position:absolute; left:0; color:var(--comment); }
+    .dot.yellow {
+      background: var(--yellow);
+    }
 
-  /* tech stack */
-  .tech-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(96px,1fr)); gap:12px; margin-top:14px; }
-  .tech{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; border:1px solid rgba(122,186,255,0.12);
-    border-radius:6px; padding:14px 8px; background:rgba(2,8,24,0.85); transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease; min-height:88px; opacity:0; transform:translateY(12px); }
-  .tech.visible{ opacity:1; transform:none; }
-  .tech:hover{ border-color:var(--green-dim); transform:translateY(-3px); box-shadow:0 10px 28px rgba(122,186,255,0.16); }
-  .tech i{ font-size:28px; }
-  .tech .fallback{ font-size:12px; color:var(--green); border:1px solid var(--green-dim); border-radius:4px; padding:4px 8px; }
-  .tech span.label{ font-size:11px; color:var(--comment); text-align:center; }
+    .dot.green {
+      background: var(--green-dim);
+    }
 
-  /* projects */
-  .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:16px; margin-top:14px; }
-  .card{ border:1px solid rgba(122,186,255,0.12); border-radius:6px; padding:16px; background:rgba(2,8,24,0.82); position:relative; transform:translateY(16px) scale(0.98); opacity:0; transition:transform .45s cubic-bezier(0.22, 1, 0.36, 1), opacity .45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow .35s ease; }
-  .card.visible{ transform:none; opacity:1; box-shadow:0 18px 55px rgba(0,0,0,0.25); }
-  .card::before{ content:"//"; color:var(--comment); position:absolute; top:14px; right:14px; font-size:12px; }
-  .card h3{ color:var(--green); font-size:14.5px; margin-bottom:8px; padding-right:20px; }
-  .card p{ font-size:12.5px; color:var(--text); line-height:1.6; margin-bottom:4px; }
-  .card ul{ margin:8px 0 10px 0; }
-  .card ul li{ list-style:none; position:relative; padding-left:14px; font-size:12px; color:var(--text); line-height:1.6; margin-bottom:3px; }
-  .card ul li::before{ content:"-"; position:absolute; left:0; color:var(--comment); }
-  .tags{ display:flex; flex-wrap:wrap; gap:6px; margin:10px 0; }
-  .tag{ font-size:10.5px; color:var(--blue); border:1px solid #1c3a4a; padding:2px 7px; border-radius:3px; background:rgba(87,199,255,0.05); }
-  .card a.link{ font-size:12px; color:var(--amber); text-decoration:none; display:inline-block; margin-top:4px; }
-  .card a.link:hover{ text-decoration:underline; }
-  .card .private{ font-size:11.5px; color:var(--comment); margin-top:4px; display:inline-block; }
+    .titlebar span.label {
+      margin-left: auto;
+      margin-right: auto;
+      color: var(--comment);
+      font-size: 12px;
+    }
 
-  .cert-list{ list-style:none; margin-top:12px; }
-  .cert-list li{ display:flex; justify-content:space-between; gap:12px; padding:10px 0; border-bottom:1px dashed var(--border);
-    font-size:13px; flex-wrap:wrap; }
-  .cert-list li:last-child{ border-bottom:none; }
-  .cert-name{ color:var(--text); }
-  .cert-issuer{ color:var(--blue); }
+    .screen {
+      padding: 28px clamp(16px, 4vw, 48px) 40px;
+    }
 
-  .edu-item{ font-size:13px; line-height:1.7; }
-  .edu-item .school{ color:var(--green); font-weight:700; }
-  .edu-item .place{ color:var(--comment); font-size:12px; }
+    .prompt {
+      color: var(--green);
+      font-weight: 700;
+    }
 
-  .contact a{ color:var(--amber); text-decoration:none; }
-  .contact a:hover{ text-decoration:underline; }
+    .prompt .path {
+      color: var(--blue);
+    }
 
-  /* console */
-  .console{ margin-top:10px; border-top:1px solid var(--border); padding-top:18px; }
-  #log .line{ margin-bottom:2px; }
-  .inputline{ display:flex; align-items:center; gap:8px; }
-  .inputline input{ flex:1; background:transparent; border:none; outline:none; color:var(--text); font-family:inherit; font-size:14px; }
-  .hint{ color:var(--comment); font-size:12px; margin-top:10px; }
+    .prompt .sym {
+      color: var(--comment);
+    }
 
-  .prompt.waiting{ opacity:.32; }
-  .prompt.waiting .cursor{ animation:blink 1s steps(1) infinite; }
+    .line {
+      margin-bottom: 4px;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
 
-  /* boot & animations */
-  .boot-line{ color:var(--comment); font-size:13px; }
-  .boot-line.ok{ color:var(--green-dim); }
-  .launch{ color:var(--amber); margin:8px 0 24px; }
+    .comment {
+      color: var(--comment);
+    }
 
-  .metrics{ display:flex; flex-wrap:wrap; gap:20px; margin-top:18px; }
-  .metric{ border:1px solid var(--border); border-radius:6px; padding:12px 16px; background:#0c1212; min-width:110px; position:relative; }
-  .metric .val{ font-size:22px; color:var(--green); font-weight:700; }
-  .metric .lbl{ font-size:11px; color:var(--comment); margin-top:4px; }
+    .out {
+      color: var(--text);
+      margin: 6px 0 22px;
+      line-height: 1.7;
+    }
 
-  /* interactive "avg query gains" metric */
-  .metric.interactive{ cursor:pointer; border-color:var(--green-dim); transition:border-color .15s, box-shadow .15s, transform .15s; }
-  .metric.interactive:hover, .metric.interactive:focus-visible{ border-color:var(--green); box-shadow:0 0 0 1px rgba(51,255,136,0.15), 0 8px 22px rgba(51,255,136,0.08); transform:translateY(-2px); outline:none; }
-  .metric.interactive .lbl::after{ content:" ▸"; color:var(--green-dim); }
+    section {
+      margin-bottom: 38px;
+    }
 
-  .metric-tip{ position:absolute; left:0; top:calc(100% + 8px); width:230px; z-index:20; background:#0c1414; border:1px solid var(--green-dim);
-    border-radius:6px; padding:10px 12px; font-size:11.5px; line-height:1.6; color:var(--text); box-shadow:0 10px 30px rgba(0,0,0,0.5);
-    animation:fadeUp .18s ease forwards; }
-  .metric-tip .hint{ display:block; margin-top:6px; color:var(--amber); font-size:11px; }
+    .name {
+      font-size: clamp(26px, 5vw, 42px);
+      color: var(--green);
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
 
-  .cmd-overlay-backdrop{ position:fixed; inset:0; background:rgba(2,6,10,0.72); backdrop-filter:blur(2px); z-index:200;
-    display:flex; align-items:center; justify-content:center; padding:20px; }
-  .cmd-overlay{ width:min(520px,100%); border:1px solid rgba(122,186,255,0.22); border-radius:8px; background:var(--panel);
-    box-shadow:0 30px 80px rgba(0,0,0,0.65); overflow:hidden; }
-  .cmd-overlay-bar{ display:flex; align-items:center; gap:8px; padding:10px 14px; background:#111818; border-bottom:1px solid var(--border); }
-  .cmd-overlay-title{ margin-left:auto; margin-right:auto; color:var(--comment); font-size:12px; }
-  .cmd-overlay-body{ padding:18px 18px 22px; height:92px; display:flex; flex-direction:column; justify-content:center; gap:8px; }
-  .cmd-overlay-body .line{ margin:0; }
-  .dots{ display:inline-block; width:1.4em; text-align:left; }
+    .role {
+      color: var(--amber);
+      margin-top: 4px;
+      font-size: 15px;
+    }
 
-  /* boot-time terminal: fixed footprint so nothing jumps around until whoami resolves */
-  .crt.size-locked{ height:min(74vh, 640px); display:flex; flex-direction:column; }
-  .crt.size-locked .screen{ flex:1; min-height:0; overflow:hidden; }
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--comment);
+    }
 
-  @keyframes fadeUp{
-    from{ opacity:0; transform:translateY(16px) scale(0.98); filter:blur(2px); }
-    to{ opacity:1; transform:none; filter:blur(0); }
-  }
-  @keyframes glowLift{
-    from{ opacity:0; transform:translateY(22px) scale(0.98); filter:blur(3px); }
-    to{ opacity:1; transform:none; filter:blur(0); }
-  }
-  .animate-in{ animation:fadeUp .55s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-  .tech.stagger, .card.stagger, .exp-item.stagger{ opacity:0; }
-  .tech.stagger.visible, .card.stagger.visible, .exp-item.stagger.visible{
-    animation:glowLift .45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
+    .meta-row a {
+      color: var(--blue);
+      text-decoration: none;
+    }
 
-  .skip-btn{
-    position:fixed; top:20px; right:20px; z-index:100;
-    border:1px solid var(--border); background:rgba(14,20,20,0.92);
-    color:var(--comment); font-family:inherit; font-size:12px;
-    padding:8px 14px; border-radius:4px; cursor:pointer;
-    backdrop-filter:blur(6px); transition:color .15s, border-color .15s;
-  }
-  .skip-btn:hover{ color:var(--green); border-color:var(--green-dim); }
+    .meta-row a:hover {
+      text-decoration: underline;
+    }
 
-  @media (max-width:480px){ .screen{ padding:20px 14px 32px; } .exp-dates{ margin-left:0; } .skip-btn{ top:12px; right:12px; } }
-  @media (prefers-reduced-motion: reduce){
-    .cursor{ animation:none; }
-    .animate-in, .tech.stagger.visible, .card.stagger.visible, .exp-item.stagger.visible{ animation:none; opacity:1; }
-  }
-</style>
+    .cursor {
+      display: inline-block;
+      width: 9px;
+      height: 1.1em;
+      background: var(--green);
+      vertical-align: text-bottom;
+      animation: blink 1s steps(1) infinite, pulseCursor 2.2s ease-in-out infinite;
+      box-shadow: 0 0 8px rgba(122, 186, 255, 0.28);
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes pulseCursor {
+
+      0%,
+      100% {
+        transform: scaleY(1);
+        box-shadow: 0 0 8px rgba(122, 186, 255, 0.28);
+      }
+
+      50% {
+        transform: scaleY(1.08);
+        box-shadow: 0 0 14px rgba(122, 186, 255, 0.42);
+      }
+    }
+
+    .bio p {
+      max-width: 720px;
+      margin-bottom: 12px;
+      font-size: 13.5px;
+    }
+
+    .btnrow {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    #matrix-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background: #020608;
+      opacity: 0.96;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--green-dim);
+      color: var(--green);
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      background: rgba(122, 186, 255, 0.06);
+      transition: background .15s, transform .15s;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: rgba(122, 186, 255, 0.16);
+      transform: translateY(-1px);
+    }
+
+    .btn.amber {
+      border-color: var(--amber);
+      color: var(--amber);
+      background: rgba(255, 176, 0, 0.05);
+    }
+
+    .btn.amber:hover {
+      background: rgba(255, 176, 0, 0.14);
+    }
+
+    /* experience */
+    .exp-list {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .exp-item {
+      position: relative;
+      padding-left: 22px;
+      border-left: 1px solid var(--border);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity .45s cubic-bezier(0.22, 1, 0.36, 1), transform .45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .exp-item.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .exp-item::before {
+      content: "";
+      position: absolute;
+      left: -5px;
+      top: 4px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+    }
+
+    .exp-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .exp-role {
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .exp-company {
+      color: var(--blue);
+      font-size: 13px;
+    }
+
+    .exp-dates {
+      color: var(--comment);
+      font-size: 12px;
+      margin-left: auto;
+    }
+
+    .exp-desc {
+      margin-top: 8px;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .exp-desc li {
+      list-style: none;
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 5px;
+    }
+
+    .exp-desc li::before {
+      content: "$";
+      position: absolute;
+      left: 0;
+      color: var(--comment);
+    }
+
+    /* tech stack */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .tech {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid rgba(122, 186, 255, 0.12);
+      border-radius: 6px;
+      padding: 14px 8px;
+      background: rgba(2, 8, 24, 0.85);
+      transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+      min-height: 88px;
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    .tech.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .tech:hover {
+      border-color: var(--green-dim);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(122, 186, 255, 0.16);
+    }
+
+    .tech i {
+      font-size: 28px;
+    }
+
+    .tech .fallback {
+      font-size: 12px;
+      color: var(--green);
+      border: 1px solid var(--green-dim);
+      border-radius: 4px;
+      padding: 4px 8px;
+    }
+
+    .tech span.label {
+      font-size: 11px;
+      color: var(--comment);
+      text-align: center;
+    }
+
+    /* projects */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 14px;
+    }
+
+    .card {
+      border: 1px solid rgba(122, 186, 255, 0.12);
+      border-radius: 6px;
+      padding: 16px;
+      background: rgba(2, 8, 24, 0.82);
+      position: relative;
+      transform: translateY(16px) scale(0.98);
+      opacity: 0;
+      transition: transform .45s cubic-bezier(0.22, 1, 0.36, 1), opacity .45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow .35s ease;
+    }
+
+    .card.visible {
+      transform: none;
+      opacity: 1;
+      box-shadow: 0 18px 55px rgba(0, 0, 0, 0.25);
+    }
+
+    .card::before {
+      content: "//";
+      color: var(--comment);
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-size: 12px;
+    }
+
+    .card h3 {
+      color: var(--green);
+      font-size: 14.5px;
+      margin-bottom: 8px;
+      padding-right: 20px;
+    }
+
+    .card p {
+      font-size: 12.5px;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 4px;
+    }
+
+    .card ul {
+      margin: 8px 0 10px 0;
+    }
+
+    .card ul li {
+      list-style: none;
+      position: relative;
+      padding-left: 14px;
+      font-size: 12px;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 3px;
+    }
+
+    .card ul li::before {
+      content: "-";
+      position: absolute;
+      left: 0;
+      color: var(--comment);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 10px 0;
+    }
+
+    .tag {
+      font-size: 10.5px;
+      color: var(--blue);
+      border: 1px solid #1c3a4a;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: rgba(87, 199, 255, 0.05);
+    }
+
+    .card a.link {
+      font-size: 12px;
+      color: var(--amber);
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 4px;
+    }
+
+    .card a.link:hover {
+      text-decoration: underline;
+    }
+
+    .card .private {
+      font-size: 11.5px;
+      color: var(--comment);
+      margin-top: 4px;
+      display: inline-block;
+    }
+
+    .cert-list {
+      list-style: none;
+      margin-top: 12px;
+    }
+
+    .cert-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--border);
+      font-size: 13px;
+      flex-wrap: wrap;
+    }
+
+    .cert-list li:last-child {
+      border-bottom: none;
+    }
+
+    .cert-name {
+      color: var(--text);
+    }
+
+    .cert-issuer {
+      color: var(--blue);
+    }
+
+    .edu-item {
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .edu-item .school {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .edu-item .place {
+      color: var(--comment);
+      font-size: 12px;
+    }
+
+    .contact a {
+      color: var(--amber);
+      text-decoration: none;
+    }
+
+    .contact a:hover {
+      text-decoration: underline;
+    }
+
+    /* console */
+    .console {
+      margin-top: 10px;
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+    }
+
+    #log .line {
+      margin-bottom: 2px;
+    }
+
+    .inputline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .inputline input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 14px;
+    }
+
+    .hint {
+      color: var(--comment);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .prompt.waiting {
+      opacity: .32;
+    }
+
+    .prompt.waiting .cursor {
+      animation: blink 1s steps(1) infinite;
+    }
+
+    /* boot & animations */
+    .boot-line {
+      color: var(--comment);
+      font-size: 13px;
+    }
+
+    .boot-line.ok {
+      color: var(--green-dim);
+    }
+
+    .launch {
+      color: var(--amber);
+      margin: 8px 0 24px;
+    }
+
+    .metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 18px;
+    }
+
+    .metric {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 16px;
+      background: #0c1212;
+      min-width: 110px;
+      position: relative;
+    }
+
+    .metric .val {
+      font-size: 22px;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .metric .lbl {
+      font-size: 11px;
+      color: var(--comment);
+      margin-top: 4px;
+    }
+
+    /* interactive "avg query gains" metric */
+    .metric.interactive {
+      cursor: pointer;
+      border-color: var(--green-dim);
+      transition: border-color .15s, box-shadow .15s, transform .15s;
+    }
+
+    .metric.interactive:hover,
+    .metric.interactive:focus-visible {
+      border-color: var(--green);
+      box-shadow: 0 0 0 1px rgba(51, 255, 136, 0.15), 0 8px 22px rgba(51, 255, 136, 0.08);
+      transform: translateY(-2px);
+      outline: none;
+    }
+
+    .metric.interactive .lbl::after {
+      content: " ▸";
+      color: var(--green-dim);
+    }
+
+    .metric-tip {
+      position: absolute;
+      left: 0;
+      top: calc(100% + 8px);
+      width: 230px;
+      z-index: 20;
+      background: #0c1414;
+      border: 1px solid var(--green-dim);
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 11.5px;
+      line-height: 1.6;
+      color: var(--text);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      animation: fadeUp .18s ease forwards;
+    }
+
+    .metric-tip .hint {
+      display: block;
+      margin-top: 6px;
+      color: var(--amber);
+      font-size: 11px;
+    }
+
+    .cmd-overlay-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 10, 0.72);
+      backdrop-filter: blur(2px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .cmd-overlay {
+      width: min(520px, 100%);
+      border: 1px solid rgba(122, 186, 255, 0.22);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
+      overflow: hidden;
+    }
+
+    .cmd-overlay-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: #111818;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cmd-overlay-title {
+      margin-left: auto;
+      margin-right: auto;
+      color: var(--comment);
+      font-size: 12px;
+    }
+
+    .cmd-overlay-body {
+      padding: 18px 18px 22px;
+      height: 92px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .cmd-overlay-body .line {
+      margin: 0;
+    }
+
+    .dots {
+      display: inline-block;
+      width: 1.4em;
+      text-align: left;
+    }
+
+    /* boot-time terminal: fixed footprint so nothing jumps around until whoami resolves */
+    .crt.size-locked {
+      height: min(74vh, 640px);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .crt.size-locked .screen {
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+        filter: blur(2px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+        filter: blur(0);
+      }
+    }
+
+    @keyframes glowLift {
+      from {
+        opacity: 0;
+        transform: translateY(22px) scale(0.98);
+        filter: blur(3px);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+        filter: blur(0);
+      }
+    }
+
+    .animate-in {
+      animation: fadeUp .55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .tech.stagger,
+    .card.stagger,
+    .exp-item.stagger {
+      opacity: 0;
+    }
+
+    .tech.stagger.visible,
+    .card.stagger.visible,
+    .exp-item.stagger.visible {
+      animation: glowLift .45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .skip-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      border: 1px solid var(--border);
+      background: rgba(14, 20, 20, 0.92);
+      color: var(--comment);
+      font-family: inherit;
+      font-size: 12px;
+      padding: 8px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      transition: color .15s, border-color .15s;
+    }
+
+    .skip-btn:hover {
+      color: var(--green);
+      border-color: var(--green-dim);
+    }
+
+    @media (max-width:480px) {
+      .screen {
+        padding: 20px 14px 32px;
+      }
+
+      .exp-dates {
+        margin-left: 0;
+      }
+
+      .skip-btn {
+        top: 12px;
+        right: 12px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .cursor {
+        animation: none;
+      }
+
+      .animate-in,
+      .tech.stagger.visible,
+      .card.stagger.visible,
+      .exp-item.stagger.visible {
+        animation: none;
+        opacity: 1;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<canvas id="matrix-canvas"></canvas>
-<div id="root"></div>
+  <canvas id="matrix-canvas"></canvas>
+  <div id="root"></div>
 
-<script type="text/babel">
-const { useState, useRef, useEffect, useCallback } = React;
+  <script type="text/babel">
+    const { useState, useRef, useEffect, useCallback } = React;
 
-const BOOT_LINES = [
-  { text: "Ubuntu 24.04 LTS", cls: "boot-line" },
-  { text: "", cls: "boot-line" },
-  { text: "[ OK ] Mounting filesystem...", cls: "boot-line ok" },
-  { text: "[ OK ] Loading profile...", cls: "boot-line ok" },
-  { text: "[ OK ] Connecting...", cls: "boot-line ok" },
-  { text: "", cls: "boot-line" },
-];
+    const BOOT_LINES = [
+      { text: "Ubuntu 24.04 LTS", cls: "boot-line" },
+      { text: "", cls: "boot-line" },
+      { text: "[ OK ] Mounting filesystem...", cls: "boot-line ok" },
+      { text: "[ OK ] Loading profile...", cls: "boot-line ok" },
+      { text: "[ OK ] Connecting...", cls: "boot-line ok" },
+      { text: "", cls: "boot-line" },
+    ];
 
-const aboutParagraphs = [
-  "Backend Software Engineer with 3+ years of production experience building and owning distributed backend systems across government, education, and enterprise domains. Designed event-driven architectures for platforms serving 1000+ users, delivering 20–30% performance gains through query optimization and caching.",
-  "Known for translating ambiguous client requirements into well-scoped technical solutions, leading code reviews that raised team-wide quality standards, and mentoring junior engineers to independently own features. Seeking roles where backend architecture decisions have real product impact.",
-];
+    const aboutParagraphs = [
+      "Backend Software Engineer with 3+ years of production experience building and owning distributed backend systems across government, education, and enterprise domains. Designed event-driven architectures for platforms serving 1000+ users, delivering 20–30% performance gains through query optimization and caching.",
+      "Known for translating ambiguous client requirements into well-scoped technical solutions, leading code reviews that raised team-wide quality standards, and mentoring junior engineers to independently own features. Seeking roles where backend architecture decisions have real product impact.",
+    ];
 
-const metrics = [
-  { value: 3, suffix: "+", label: "years production" },
-  { value: 8, suffix: "+", label: "projects shipped" },
-  {
-    value: 30, suffix: "%", label: "avg query gains",
-    detail: "Indexing, N+1 elimination, connection pooling on PostgreSQL/Django.",
-    command: "curl https://www.sajankc99.com.np/an-html.html",
-    url: "Drf-query-reduction-analysis.html",
-  },
-];
+    const metrics = [
+      { value: 3, suffix: "+", label: "years production" },
+      { value: 8, suffix: "+", label: "projects shipped" },
+      {
+        value: 30, suffix: "%", label: "avg query gains(click me)",
+        detail: "Indexing, N+1 elimination, connection pooling on PostgreSQL/Django.",
+        command: "curl https://sajankc99.com.np/an-html.html",
+        url: "Drf-query-reduction-analysis.html",
+      },
+    ];
 
-const sequence = [
-  { id: "intro", command: "whoami", type: "intro" },
-  { id: "about", command: "cat about.txt", type: "paragraph" },
-  { id: "experience", command: "cat experience.log", type: "experience" },
-  { id: "stack", command: "pip list --stack", type: "stack" },
-  { id: "resume", command: "ls -la resume/", type: "resume" },
-  { id: "projects", command: "ls projects/", type: "projects" },
-  { id: "certs", command: "cat certifications.log", type: "certs" },
-  { id: "education", command: "cat education.txt", type: "education" },
-  { id: "contact", command: "cat contact.txt", type: "contact" },
-];
+    const sequence = [
+      { id: "intro", command: "whoami", type: "intro" },
+      { id: "about", command: "cat about.txt", type: "paragraph" },
+      { id: "experience", command: "cat experience.log", type: "experience" },
+      { id: "stack", command: "pip list --stack", type: "stack" },
+      { id: "resume", command: "ls -la resume/", type: "resume" },
+      { id: "projects", command: "ls projects/", type: "projects" },
+      { id: "certs", command: "cat certifications.log", type: "certs" },
+      { id: "education", command: "cat education.txt", type: "education" },
+      { id: "contact", command: "cat contact.txt", type: "contact" },
+    ];
 
-const PAUSE_MS = 100;
-const STAGGER_MS = 40;
-const BOOT_DELAY = 340;
-const INSTANT_AFTER = 1; // only animate first N queue steps
+    const PAUSE_MS = 420;
+    const STAGGER_MS = 40;
+    const BOOT_DELAY = 340;
+    const INSTANT_AFTER = 1; // only animate first N queue steps
 
-function TypedCommand({ text, speed = 240, onDone }) {
-  const [value, setValue] = useState("");
-  const onDoneRef = useRef(onDone);
-  const indexRef = useRef(0);
-  const timerRef = useRef(null);
-  onDoneRef.current = onDone;
+    function TypedCommand({ text, speed = 100, onDone }) {
+      const [value, setValue] = useState("");
+      const onDoneRef = useRef(onDone);
+      const indexRef = useRef(0);
+      const timerRef = useRef(null);
+      onDoneRef.current = onDone;
 
-  useEffect(() => {
-    indexRef.current = 0;
-    setValue("");
-  }, [text]);
+      useEffect(() => {
+        indexRef.current = 0;
+        setValue("");
+      }, [text]);
 
-  useEffect(() => {
-    const flush = () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-        timerRef.current = null;
-      }
-    };
+      useEffect(() => {
+        const flush = () => {
+          if (timerRef.current) {
+            clearTimeout(timerRef.current);
+            timerRef.current = null;
+          }
+        };
 
-    const scheduleTick = () => {
-      const jitter = Math.round(Math.random() * 120 - 40);
-      const delay = Math.max(140, speed + jitter);
-      timerRef.current = setTimeout(tick, delay);
-    };
+        const scheduleTick = () => {
+          const jitter = Math.round(Math.random() * 120 - 40);
+          const delay = Math.max(140, speed + jitter);
+          timerRef.current = setTimeout(tick, delay);
+        };
 
-    const tick = () => {
-      indexRef.current += 1;
-      setValue(text.slice(0, indexRef.current));
-      if (indexRef.current >= text.length) {
+        const tick = () => {
+          indexRef.current += 1;
+          setValue(text.slice(0, indexRef.current));
+          if (indexRef.current >= text.length) {
+            flush();
+            onDoneRef.current?.();
+          } else {
+            scheduleTick();
+          }
+        };
+
         flush();
-        onDoneRef.current?.();
-      } else {
         scheduleTick();
-      }
-    };
+        return flush;
+      }, [text, speed]);
 
-    flush();
-    scheduleTick();
-    return flush;
-  }, [text, speed]);
-
-  return (
-    <div className="line prompt">
-      <span className="path">sajan@portfolio</span>
-      <span className="sym">:~$</span> {value}
-      <span className="cursor" />
-    </div>
-  );
-}
-
-function Typewriter({ text, speed = 62, onDone }) {
-  const [output, setOutput] = useState("");
-  const onDoneRef = useRef(onDone);
-  onDoneRef.current = onDone;
-
-  useEffect(() => {
-    let i = 0;
-    setOutput("");
-    const timer = setInterval(() => {
-      i++;
-      setOutput(text.slice(0, i));
-      if (i >= text.length) {
-        clearInterval(timer);
-        onDoneRef.current?.();
-      }
-    }, speed);
-    return () => clearInterval(timer);
-  }, [text, speed]);
-
-  return <span>{output}</span>;
-}
-
-function CountUp({ value, suffix = "", duration = 1200, onDone }) {
-  const [count, setCount] = useState(0);
-  const onDoneRef = useRef(onDone);
-  onDoneRef.current = onDone;
-
-  useEffect(() => {
-    const start = performance.now();
-    let frame;
-    const tick = (now) => {
-      const progress = Math.min((now - start) / duration, 1);
-      setCount(Math.round(progress * value));
-      if (progress < 1) frame = requestAnimationFrame(tick);
-      else onDoneRef.current?.();
-    };
-    frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [value, duration]);
-
-  return <span>{count}{suffix}</span>;
-}
-
-function useStaggerReveal(count, delay = STAGGER_MS, onComplete, enabled = true) {
-  const [visible, setVisible] = useState(enabled ? 0 : count);
-  const onCompleteRef = useRef(onComplete);
-  onCompleteRef.current = onComplete;
-
-  useEffect(() => {
-    if (!enabled) {
-      setVisible(count);
-      return;
-    }
-    if (visible >= count) {
-      onCompleteRef.current?.();
-      return;
-    }
-    const t = setTimeout(() => setVisible((v) => v + 1), delay);
-    return () => clearTimeout(t);
-  }, [visible, count, delay, enabled]);
-
-  return enabled ? visible : count;
-}
-
-const IO_OPTIONS = { threshold: 0.15, rootMargin: "0px 0px -12% 0px" };
-
-function prefersReducedMotion() {
-  return typeof window !== "undefined" &&
-    window.matchMedia &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-
-// Fires once, the first time the referenced element scrolls into view.
-function useInViewOnce(ref) {
-  const [inView, setInView] = useState(false);
-
-  useEffect(() => {
-    if (inView) return;
-    const node = ref.current;
-    if (!node) return;
-    if (typeof IntersectionObserver === "undefined") { setInView(true); return; }
-
-    const io = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        setInView(true);
-        io.disconnect();
-      }
-    }, IO_OPTIONS);
-
-    io.observe(node);
-    return () => io.disconnect();
-  }, [ref, inView]);
-
-  return inView;
-}
-
-// Renders a section that stays dormant (dimmed empty prompt) until the user
-// scrolls it into view, at which point it types its command and reveals its
-// content — the "typing on scroll" effect for everything after the intro.
-function ScrollStep({ step, startDelay = 0, ready = true, onComplete }) {
-  const sectionRef = useRef(null);
-  const inView = useInViewOnce(sectionRef);
-  const reduced = useRef(prefersReducedMotion()).current;
-  const [phase, setPhase] = useState("waiting"); // waiting -> typing -> content
-  const [readyToType, setReadyToType] = useState(false);
-  const [hasScrolled, setHasScrolled] = useState(false);
-
-  useEffect(() => {
-    if (!inView || phase !== "waiting" || !ready) return;
-    if (reduced) {
-      setPhase("typing");
-      return;
-    }
-
-    const scrollHeight = document.documentElement.scrollHeight;
-    const atBottom = window.scrollY + window.innerHeight >= scrollHeight - 32;
-    const pageIsFilled = scrollHeight > window.innerHeight + 8;
-
-    if (pageIsFilled && atBottom && !hasScrolled) {
-      setReadyToType(false);
-      return;
-    }
-
-    setReadyToType(true);
-  }, [inView, phase, reduced, ready, hasScrolled]);
-
-  useEffect(() => {
-    if (!readyToType || phase !== "waiting") return;
-    const t = setTimeout(() => setPhase("typing"), startDelay);
-    return () => clearTimeout(t);
-  }, [readyToType, phase, startDelay]);
-
-  useEffect(() => {
-    if (phase !== "waiting") return;
-    const onScroll = () => setHasScrolled(true);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [phase]);
-
-  const advance = useCallback(() => {
-    setTimeout(() => setPhase("content"), PAUSE_MS);
-  }, []);
-
-  return (
-    <section id={step.id} ref={sectionRef} className={step.id === "contact" ? "contact" : ""}>
-      {phase === "waiting" && (
-        <div className="line prompt waiting">
-          <span className="path">sajan@portfolio</span><span className="sym">:~$</span> <span className="cursor" />
+      return (
+        <div className="line prompt">
+          <span className="path">sajan@portfolio</span>
+          <span className="sym">:~$</span> {value}
+          <span className="cursor" />
         </div>
-      )}
-      {phase === "typing" && <TypedCommand text={step.command} onDone={advance} />}
-      {phase === "content" && (
-        <>
-          <PromptLine cmd={step.command} />
-          <SectionContent step={step} animated={!reduced} onDone={onComplete} />
-        </>
-      )}
-    </section>
-  );
-}
-
-function BootSequence({ onComplete, onSkip }) {
-  const [lineIndex, setLineIndex] = useState(0);
-  const doneRef = useRef(false);
-
-  const finish = useCallback(() => {
-    if (doneRef.current) return;
-    doneRef.current = true;
-    onComplete();
-  }, [onComplete]);
-
-  useEffect(() => {
-    if (lineIndex >= BOOT_LINES.length) {
-      const t = setTimeout(finish, 120);
-      return () => clearTimeout(t);
+      );
     }
-    const delay = BOOT_LINES[lineIndex].text === "" ? 40 : BOOT_DELAY;
-    const t = setTimeout(() => setLineIndex((i) => i + 1), delay);
-    return () => clearTimeout(t);
-  }, [lineIndex, finish]);
 
-  return (
-    <div className="boot">
-      {BOOT_LINES.slice(0, lineIndex).map((line, i) => (
-        <div className={"line " + line.cls} key={i}>{line.text || "\u00A0"}</div>
-      ))}
-      {lineIndex >= BOOT_LINES.length && (
-        <div className="line launch animate-in">Launching portfolio...</div>
-      )}
-      <button type="button" className="skip-btn" onClick={onSkip}>skip intro →</button>
-    </div>
-  );
-}
+    function Typewriter({ text, speed = 62, onDone }) {
+      const [output, setOutput] = useState("");
+      const onDoneRef = useRef(onDone);
+      onDoneRef.current = onDone;
 
-function PromptLine({ cmd }) {
-  return (
-    <div className="line prompt">
-      <span className="path">sajan@portfolio</span><span className="sym">:~$</span> {cmd}
-    </div>
-  );
-}
+      useEffect(() => {
+        let i = 0;
+        setOutput("");
+        const timer = setInterval(() => {
+          i++;
+          setOutput(text.slice(0, i));
+          if (i >= text.length) {
+            clearInterval(timer);
+            onDoneRef.current?.();
+          }
+        }, speed);
+        return () => clearInterval(timer);
+      }, [text, speed]);
 
-const experience = [
-  {
-    role: "Backend Developer",
-    company: "Calcgen Nepal",
-    place: "Kathmandu, Nepal",
-    dates: "Jul 2024 — Present",
-    bullets: [
-      "Owned full backend lifecycle across 6+ production systems: government portals, CRM platforms, e-learning environments",
-      "Cut average PostgreSQL query time by 30% via indexing, query restructuring, connection pool tuning",
-      "Built multi-layer Redis caching strategy, improving API response latency by ~40% on hot endpoints",
-      "Architected distributed task pipelines with Celery + RabbitMQ/Redis for background jobs, notifications, scheduled reports",
-      "Primary technical liaison with clients: requirements, scope, trade-offs in non-technical terms",
-      "Led code reviews team-wide, enforced clean architecture and DRY, mentored 2 junior backend developers to feature-level independence"
-    ]
-  },
-  {
-    role: "Django Developer (Internship)",
-    company: "MindRisers Consortium",
-    place: "Kathmandu, Nepal",
-    dates: "Oct 2023 — Jan 2024",
-    bullets: [
-      "Built and documented RESTful APIs with Django REST Framework, shipped features that passed production review within first month",
-      "Designed normalized PostgreSQL schemas, managed Docker-based dev environments for consistent builds",
-      "Integrated third-party APIs and OAuth-based authentication, coordinating requirements with external providers"
-    ]
-  }
-];
+      return <span>{output}</span>;
+    }
 
-const stack = [
-  { icon: "devicon-python-plain colored", label: "Python" },
-  { icon: "devicon-django-plain colored", label: "Django" },
-  { icon: "devicon-fastapi-plain colored", label: "FastAPI" },
-  { icon: "devicon-postgresql-plain colored", label: "PostgreSQL" },
-  { icon: "devicon-redis-plain colored", label: "Redis" },
-  { icon: "devicon-rabbitmq-original colored", label: "RabbitMQ" },
-  { fallback: "celery", label: "Celery" },
-  { icon: "devicon-docker-plain colored", label: "Docker" },
-  { icon: "devicon-git-plain colored", label: "Git" },
-  { icon: "devicon-github-original colored", label: "GitHub" },
-  { icon: "devicon-gitlab-plain colored", label: "GitLab" },
-  { icon: "devicon-googlecloud-plain colored", label: "GCP" },
-  { icon: "devicon-linux-plain colored", label: "Linux" },
-];
+    function CountUp({ value, suffix = "", duration = 1200, onDone }) {
+      const [count, setCount] = useState(0);
+      const onDoneRef = useRef(onDone);
+      onDoneRef.current = onDone;
 
-const projects = [
-  {
-    name: "RD Education Group — CRM & Student Portal",
-    desc: "Modular multi-tier CRM: agent dashboards, document workflows, student lifecycle management.",
-    bullets: [
-      "Real-time cross-role chat/notifications via Redis Pub/Sub — near-instant delivery, no polling",
-      "JWT-secured API with granular multi-role access control",
-      "Zero-downtime CI/CD releases across environments"
-    ],
-    tags: ["Django DRF", "PostgreSQL", "Redis", "RabbitMQ", "Celery", "Docker"],
-    link: "https://rdeducationgroup.com"
-  },
-  {
-    name: "Apex Education — Mock Test & School Management",
-    desc: "Dynamic mock-test generation engine: randomized, template-based papers per session.",
-    bullets: [
-      "DB normalization + indexing for concurrent exam-load reads",
-      "Redis + RabbitMQ decouple test-session processing from request cycle"
-    ],
-    tags: ["Django DRF", "PostgreSQL", "Redis", "Celery", "Docker"],
-    link: null
-  },
-  {
-    name: "BodhiTreks — Travel E-Commerce Platform",
-    desc: "Booking platform with third-party payment integration for online travel bookings.",
-    bullets: [
-      "Integrated SmartGateway for secure booking transactions",
-      "SMS/OTP authentication for onboarding security",
-      "Optimized booking queries; enhanced admin via django-jazzmin"
-    ],
-    tags: ["Django DRF", "PostgreSQL", "Redis", "Celery", "Docker"],
-    link: "https://bodhitreks.com"
-  },
-  {
-    name: "Laticrete CRM — B2B Product Survey System",
-    desc: "Regional B2B survey platform for a multinational construction manufacturer (Africa, America, Nepal).",
-    bullets: [
-      "Hierarchical, region-scoped RBAC translated from layered org permission requirements",
-      "Real-time notifications, deadline reminders; tuned RabbitMQ throughput for concurrent regional submissions"
-    ],
-    tags: ["Django DRF", "PostgreSQL", "Redis", "RabbitMQ", "Celery", "Docker"],
-    link: null
-  },
-  {
-    name: "WWF Depository — Regional Data & Reporting Platform",
-    desc: "Data entry and achievement reporting platform for 1000+ regional WWF employees.",
-    bullets: [
-      "Server-rendered dashboards, dynamic forms, region-scoped access control",
-      "Formatted CSV report generation validated with WWF stakeholders",
-      "Query optimization for responsive reports at scale"
-    ],
-    tags: ["Django DRF", "Django Templates", "PostgreSQL", "Redis", "Celery"],
-    link: "https://depositary.wwfnepal.org.np"
-  },
-  {
-    name: "E.I.A / MOFE — Government Environmental Impact Portal",
-    desc: "Government portal for environmental impact assessment proposals across multiple ministries.",
-    bullets: [
-      "Proposal back-tracking across ministries; fine-grained role-permission system via Django Groups",
-      "Email/in-app notifications on proposal status changes",
-      "DB schema designed and optimized for multi-ministry workflows"
-    ],
-    tags: ["Django DRF", "PostgreSQL", "Redis", "Celery", "Docker"],
-    link: null
-  },
-  {
-    name: "ICAN VLE — Virtual Learning Environment",
-    desc: "Study material upload pipeline with in-browser PDF rendering, commenting, and highlighting.",
-    bullets: [
-      "Integrated eSewa payment gateway for subscriptions",
-      "Managed CI/CD and deployment pipelines with zero downtime"
-    ],
-    tags: ["Django DRF", "PostgreSQL", "Redis", "Celery", "Docker"],
-    link: null
-  },
-  {
-    name: "RedPanda — Regional CRM & Reporting Platform",
-    desc: "Data entry and reporting system for 1000+ staff with region-assigned access.",
-    bullets: [
-      "Structured form workflows, CSV report generation for operational tracking",
-      "End-to-end DevOps: provisioning, deployment pipelines, DB administration"
-    ],
-    tags: ["Django DRF", "PostgreSQL", "Redis", "Celery", "Docker", "HTML/CSS/JS"],
-    link: null
-  }
-];
+      useEffect(() => {
+        const start = performance.now();
+        let frame;
+        const tick = (now) => {
+          const progress = Math.min((now - start) / duration, 1);
+          setCount(Math.round(progress * value));
+          if (progress < 1) frame = requestAnimationFrame(tick);
+          else onDoneRef.current?.();
+        };
+        frame = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(frame);
+      }, [value, duration]);
 
-const certifications = [
-  { name: "Python with Django", issuer: "MindRisers Consortium" },
-  { name: "Django Developer Internship Certification", issuer: "MindRisers Consortium" },
-  { name: "AI with Python", issuer: "ProgrammingHub" },
-];
+      return <span>{count}{suffix}</span>;
+    }
 
-function useDoneAfterDelay(animated, onDone, ms = 400) {
-  const onDoneRef = useRef(onDone);
-  onDoneRef.current = onDone;
+    function useStaggerReveal(count, delay = STAGGER_MS, onComplete, enabled = true) {
+      const [visible, setVisible] = useState(enabled ? 0 : count);
+      const onCompleteRef = useRef(onComplete);
+      onCompleteRef.current = onComplete;
 
-  useEffect(() => {
-    if (!animated) return;
-    const t = setTimeout(() => onDoneRef.current?.(), ms);
-    return () => clearTimeout(t);
-  }, [animated, ms]);
-}
+      useEffect(() => {
+        if (!enabled) {
+          setVisible(count);
+          return;
+        }
+        if (visible >= count) {
+          onCompleteRef.current?.();
+          return;
+        }
+        const t = setTimeout(() => setVisible((v) => v + 1), delay);
+        return () => clearTimeout(t);
+      }, [visible, count, delay, enabled]);
 
-function LoadingDots() {
-  const [n, setN] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setN((v) => (v + 1) % 4), 280);
-    return () => clearInterval(t);
-  }, []);
-  return <span className="dots">{".".repeat(n)}</span>;
-}
+      return enabled ? visible : count;
+    }
 
-// Terminal-style popup: types the curl command, "loads" for 2-3s, then
-// opens the target page in a new tab and closes itself.
-function CommandOverlay({ command, url, onClose }) {
-  const [typed, setTyped] = useState("");
-  const [stage, setStage] = useState("typing"); // typing -> loading -> done
+    const IO_OPTIONS = { threshold: 0.15, rootMargin: "0px 0px -12% 0px" };
 
-  useEffect(() => {
-    let i = 0;
-    const t = setInterval(() => {
-      i += 1;
-      setTyped(command.slice(0, i));
-      if (i >= command.length) {
-        clearInterval(t);
-        setStage("loading");
-      }
-    }, 42);
-    return () => clearInterval(t);
-  }, [command]);
+    function prefersReducedMotion() {
+      return typeof window !== "undefined" &&
+        window.matchMedia &&
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
 
-  useEffect(() => {
-    if (stage !== "loading") return;
-    const wait = 2000 + Math.random() * 1000; // 2-3s
-    const t = setTimeout(() => {
-      setStage("done");
-      window.open(url, "_blank", "noopener");
-      const closeT = setTimeout(onClose, 500);
-      return () => clearTimeout(closeT);
-    }, wait);
-    return () => clearTimeout(t);
-  }, [stage, url, onClose]);
+    // Fires once, the first time the referenced element scrolls into view.
+    function useInViewOnce(ref) {
+      const [inView, setInView] = useState(false);
 
-  useEffect(() => {
-    const onKey = (e) => { if (e.key === "Escape") onClose(); };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
+      useEffect(() => {
+        if (inView) return;
+        const node = ref.current;
+        if (!node) return;
+        if (typeof IntersectionObserver === "undefined") { setInView(true); return; }
 
-  return (
-    <div className="cmd-overlay-backdrop" onClick={onClose}>
-      <div className="cmd-overlay" onClick={(e) => e.stopPropagation()}>
-        <div className="cmd-overlay-bar">
-          <span className="dot red"></span>
-          <span className="dot yellow"></span>
-          <span className="dot green"></span>
-          <span className="cmd-overlay-title">sajan@portfolio: ~</span>
-        </div>
-        <div className="cmd-overlay-body">
-          <div className="line prompt">
-            <span className="path">sajan@portfolio</span><span className="sym">:~$</span> {typed}
-            {stage === "typing" && <span className="cursor" />}
-          </div>
-          {stage !== "typing" && (
-            <div className="line comment">
-              {stage === "loading"
-                ? <>connecting to my-domain<LoadingDots /></>
-                : "→ 200 OK — opening in new tab"}
+        const io = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+            setInView(true);
+            io.disconnect();
+          }
+        }, IO_OPTIONS);
+
+        io.observe(node);
+        return () => io.disconnect();
+      }, [ref, inView]);
+
+      return inView;
+    }
+
+    // Renders a section that stays dormant (dimmed empty prompt) until the user
+    // scrolls it into view, at which point it types its command and reveals its
+    // content — the "typing on scroll" effect for everything after the intro.
+    function ScrollStep({ step, startDelay = 0, ready = true, onComplete }) {
+      const sectionRef = useRef(null);
+      const inView = useInViewOnce(sectionRef);
+      const reduced = useRef(prefersReducedMotion()).current;
+      const [phase, setPhase] = useState("waiting"); // waiting -> typing -> content
+      const [readyToType, setReadyToType] = useState(false);
+      const [hasScrolled, setHasScrolled] = useState(false);
+
+      useEffect(() => {
+        if (!inView || phase !== "waiting" || !ready) return;
+        if (reduced) {
+          setPhase("typing");
+          return;
+        }
+
+        const scrollHeight = document.documentElement.scrollHeight;
+        const atBottom = window.scrollY + window.innerHeight >= scrollHeight - 32;
+        const pageIsFilled = scrollHeight > window.innerHeight + 8;
+
+        if (pageIsFilled && atBottom && !hasScrolled) {
+          setReadyToType(false);
+          return;
+        }
+
+        setReadyToType(true);
+      }, [inView, phase, reduced, ready, hasScrolled]);
+
+      useEffect(() => {
+        if (!readyToType || phase !== "waiting") return;
+        const t = setTimeout(() => setPhase("typing"), startDelay);
+        return () => clearTimeout(t);
+      }, [readyToType, phase, startDelay]);
+
+      useEffect(() => {
+        if (phase !== "waiting") return;
+        const onScroll = () => setHasScrolled(true);
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+      }, [phase]);
+
+      const advance = useCallback(() => {
+        setTimeout(() => setPhase("content"), PAUSE_MS);
+      }, []);
+
+      return (
+        <section id={step.id} ref={sectionRef} className={step.id === "contact" ? "contact" : ""}>
+          {phase === "waiting" && (
+            <div className="line prompt waiting">
+              <span className="path">sajan@portfolio</span><span className="sym">:~$</span> <span className="cursor" />
             </div>
           )}
-        </div>
-      </div>
-    </div>
-  );
-}
+          {phase === "typing" && <TypedCommand text={step.command} onDone={advance} />}
+          {phase === "content" && (
+            <>
+              <PromptLine cmd={step.command} />
+              <SectionContent step={step} animated={!reduced} onDone={onComplete} />
+            </>
+          )}
+        </section>
+      );
+    }
 
-function MetricCard({ m, display }) {
-  const [showTip, setShowTip] = useState(false);
-  const [running, setRunning] = useState(false);
+    function BootSequence({ onComplete, onSkip }) {
+      const [lineIndex, setLineIndex] = useState(0);
+      const doneRef = useRef(false);
 
-  if (!m.command) {
-    return (
-      <div className="metric">
-        <div className="val">{display}</div>
-        <div className="lbl">{m.label}</div>
-      </div>
-    );
-  }
+      const finish = useCallback(() => {
+        if (doneRef.current) return;
+        doneRef.current = true;
+        onComplete();
+      }, [onComplete]);
 
-  return (
-    <>
-      <div
-        className="metric interactive"
-        role="button"
-        tabIndex={0}
-        onMouseEnter={() => setShowTip(true)}
-        onMouseLeave={() => setShowTip(false)}
-        onFocus={() => setShowTip(true)}
-        onBlur={() => setShowTip(false)}
-        onClick={() => setRunning(true)}
-        onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setRunning(true); } }}
-      >
-        <div className="val">{display}</div>
-        <div className="lbl">{m.label}</div>
-        {showTip && !running && (
-          <div className="metric-tip">
-            {m.detail}
-            <span className="hint">click to run breakdown →</span>
-          </div>
-        )}
-      </div>
-      {running && ReactDOM.createPortal(
-        <CommandOverlay command={m.command} url={m.url} onClose={() => setRunning(false)} />,
-        document.body
-      )}
-    </>
-  );
-}
+      useEffect(() => {
+        if (lineIndex >= BOOT_LINES.length) {
+          const t = setTimeout(finish, 120);
+          return () => clearTimeout(t);
+        }
+        const delay = BOOT_LINES[lineIndex].text === "" ? 40 : BOOT_DELAY;
+        const t = setTimeout(() => setLineIndex((i) => i + 1), delay);
+        return () => clearTimeout(t);
+      }, [lineIndex, finish]);
 
-function IntroSection({ animated, onDone }) {
-  const onDoneRef = useRef(onDone);
-  onDoneRef.current = onDone;
-
-  useEffect(() => {
-    if (!animated) { onDoneRef.current?.(); return; }
-    const t = setTimeout(() => onDoneRef.current?.(), 900);
-    return () => clearTimeout(t);
-  }, [animated]);
-
-  if (!animated) {
-    return (
-      <>
-        <div className="name">Sajan K.C.</div>
-        <div className="role">Backend Software Engineer — Python / Django / Distributed Systems</div>
-        <div className="meta-row">
-          <span>Kathmandu, Nepal · Open to Remote</span>
-          <a href="tel:+9779803593774">+977 9803593774</a>
-          <a href="mailto:kcsajan272@gmail.com">kcsajan272@gmail.com</a>
-          <a href="https://github.com/sajankc999" target="_blank" rel="noreferrer">github.com/sajankc999</a>
-          <a href="https://linkedin.com/in/sajan-kc-2a7819297" target="_blank" rel="noreferrer">linkedin.com/in/sajan-kc-2a7819297</a>
-        </div>
-        <div className="metrics">
-          {metrics.map((m, i) => (
-            <MetricCard m={m} display={`${m.value}${m.suffix}`} key={i} />
+      return (
+        <div className="boot">
+          {BOOT_LINES.slice(0, lineIndex).map((line, i) => (
+            <div className={"line " + line.cls} key={i}>{line.text || "\u00A0"}</div>
           ))}
+          {lineIndex >= BOOT_LINES.length && (
+            <div className="line launch animate-in">Launching portfolio...</div>
+          )}
+          <button type="button" className="skip-btn" onClick={onSkip}>skip intro →</button>
         </div>
-      </>
-    );
-  }
+      );
+    }
 
-  return (
-    <div className="animate-in">
-      <div className="name">
-        <Typewriter text="Sajan K.C." speed={28} />
-      </div>
-      <div className="role">Backend Software Engineer — Python / Django / Distributed Systems</div>
-      <div className="meta-row">
-        <span>Kathmandu, Nepal · Open to Remote</span>
-        <a href="tel:+9779803593774">+977 9803593774</a>
-        <a href="mailto:kcsajan272@gmail.com">kcsajan272@gmail.com</a>
-        <a href="https://github.com/sajankc999" target="_blank" rel="noreferrer">github.com/sajankc999</a>
-        <a href="https://linkedin.com/in/sajan-kc-2a7819297" target="_blank" rel="noreferrer">linkedin.com/in/sajan-kc-2a7819297</a>
-      </div>
-      <div className="metrics">
-        {metrics.map((m, i) => (
-          <MetricCard
-            m={m}
-            display={<CountUp value={m.value} suffix={m.suffix} duration={600} />}
-            key={i}
-          />
-        ))}
-      </div>
-    </div>
-  );
-}
+    function PromptLine({ cmd }) {
+      return (
+        <div className="line prompt">
+          <span className="path">sajan@portfolio</span><span className="sym">:~$</span> {cmd}
+        </div>
+      );
+    }
 
-function ParagraphSection({ animated, onDone }) {
-  useDoneAfterDelay(animated, onDone, 180);
-  return (
-    <div className={"out bio" + (animated ? " animate-in" : "")}>
-      {aboutParagraphs.map((p, i) => <p key={i}>{p}</p>)}
-    </div>
-  );
-}
+    const experience = [
+      {
+        role: "Backend Developer",
+        company: "Calcgen Nepal",
+        place: "Kathmandu, Nepal",
+        dates: "Jul 2024 — Present",
+        bullets: [
+          "Owned full backend lifecycle across 6+ production systems: government portals, CRM platforms, e-learning environments",
+          "Cut average PostgreSQL query time by 30% via indexing, query restructuring, connection pool tuning",
+          "Built multi-layer Redis caching strategy, improving API response latency by ~40% on hot endpoints",
+          "Architected distributed task pipelines with Celery + RabbitMQ/Redis for background jobs, notifications, scheduled reports",
+          "Primary technical liaison with clients: requirements, scope, trade-offs in non-technical terms",
+          "Led code reviews team-wide, enforced clean architecture and DRY, mentored 2 junior backend developers to feature-level independence"
+        ]
+      },
+      {
+        role: "Django Developer (Internship)",
+        company: "MindRisers Consortium",
+        place: "Kathmandu, Nepal",
+        dates: "Oct 2023 — Jan 2024",
+        bullets: [
+          "Built and documented RESTful APIs with Django REST Framework, shipped features that passed production review within first month",
+          "Designed normalized PostgreSQL schemas, managed Docker-based dev environments for consistent builds",
+          "Integrated third-party APIs and OAuth-based authentication, coordinating requirements with external providers"
+        ]
+      }
+    ];
 
-function ExperienceSection({ animated, onDone }) {
-  const [visible, setVisible] = useState(!animated);
-  useDoneAfterDelay(animated, onDone, 220);
+    const stack = [
+      { icon: "devicon-python-plain colored", label: "Python" },
+      { icon: "devicon-django-plain colored", label: "Django" },
+      { icon: "devicon-fastapi-plain colored", label: "FastAPI" },
+      { icon: "devicon-postgresql-plain colored", label: "PostgreSQL" },
+      { icon: "devicon-redis-plain colored", label: "Redis" },
+      { icon: "devicon-rabbitmq-original colored", label: "RabbitMQ" },
+      { fallback: "celery", label: "Celery" },
+      { icon: "devicon-docker-plain colored", label: "Docker" },
+      { icon: "devicon-git-plain colored", label: "Git" },
+      { icon: "devicon-github-original colored", label: "GitHub" },
+      { icon: "devicon-gitlab-plain colored", label: "GitLab" },
+      { icon: "devicon-googlecloud-plain colored", label: "GCP" },
+      { icon: "devicon-linux-plain colored", label: "Linux" },
+    ];
 
-  useEffect(() => {
-    if (!animated) return;
-    const t = setTimeout(() => setVisible(true), 60);
-    return () => clearTimeout(t);
-  }, [animated]);
+    const projects = [
+      {
+        name: "RD Education Group — CRM & Student Portal",
+        desc: "Modular multi-tier CRM: agent dashboards, document workflows, student lifecycle management.",
+        bullets: [
+          "Real-time cross-role chat/notifications via Redis Pub/Sub — near-instant delivery, no polling",
+          "JWT-secured API with granular multi-role access control",
+          "Zero-downtime CI/CD releases across environments"
+        ],
+        tags: ["Django DRF", "PostgreSQL", "Redis", "RabbitMQ", "Celery", "Docker"],
+        link: "https://rdeducationgroup.com"
+      },
+      {
+        name: "Apex Education — Mock Test & School Management",
+        desc: "Dynamic mock-test generation engine: randomized, template-based papers per session.",
+        bullets: [
+          "DB normalization + indexing for concurrent exam-load reads",
+          "Redis + RabbitMQ decouple test-session processing from request cycle"
+        ],
+        tags: ["Django DRF", "PostgreSQL", "Redis", "Celery", "Docker"],
+        link: null
+      },
+      {
+        name: "BodhiTreks — Travel E-Commerce Platform",
+        desc: "Booking platform with third-party payment integration for online travel bookings.",
+        bullets: [
+          "Integrated SmartGateway for secure booking transactions",
+          "SMS/OTP authentication for onboarding security",
+          "Optimized booking queries; enhanced admin via django-jazzmin"
+        ],
+        tags: ["Django DRF", "PostgreSQL", "Redis", "Celery", "Docker"],
+        link: "https://bodhitreks.com"
+      },
+      {
+        name: "Laticrete CRM — B2B Product Survey System",
+        desc: "Regional B2B survey platform for a multinational construction manufacturer (Africa, America, Nepal).",
+        bullets: [
+          "Hierarchical, region-scoped RBAC translated from layered org permission requirements",
+          "Real-time notifications, deadline reminders; tuned RabbitMQ throughput for concurrent regional submissions"
+        ],
+        tags: ["Django DRF", "PostgreSQL", "Redis", "RabbitMQ", "Celery", "Docker"],
+        link: null
+      },
+      {
+        name: "WWF Depository — Regional Data & Reporting Platform",
+        desc: "Data entry and achievement reporting platform for 1000+ regional WWF employees.",
+        bullets: [
+          "Server-rendered dashboards, dynamic forms, region-scoped access control",
+          "Formatted CSV report generation validated with WWF stakeholders",
+          "Query optimization for responsive reports at scale"
+        ],
+        tags: ["Django DRF", "Django Templates", "PostgreSQL", "Redis", "Celery"],
+        link: "https://depositary.wwfnepal.org.np"
+      },
+      {
+        name: "E.I.A / MOFE — Government Environmental Impact Portal",
+        desc: "Government portal for environmental impact assessment proposals across multiple ministries.",
+        bullets: [
+          "Proposal back-tracking across ministries; fine-grained role-permission system via Django Groups",
+          "Email/in-app notifications on proposal status changes",
+          "DB schema designed and optimized for multi-ministry workflows"
+        ],
+        tags: ["Django DRF", "PostgreSQL", "Redis", "Celery", "Docker"],
+        link: null
+      },
+      {
+        name: "ICAN VLE — Virtual Learning Environment",
+        desc: "Study material upload pipeline with in-browser PDF rendering, commenting, and highlighting.",
+        bullets: [
+          "Integrated eSewa payment gateway for subscriptions",
+          "Managed CI/CD and deployment pipelines with zero downtime"
+        ],
+        tags: ["Django DRF", "PostgreSQL", "Redis", "Celery", "Docker"],
+        link: null
+      },
+      {
+        name: "RedPanda — Regional CRM & Reporting Platform",
+        desc: "Data entry and reporting system for 1000+ staff with region-assigned access.",
+        bullets: [
+          "Structured form workflows, CSV report generation for operational tracking",
+          "End-to-end DevOps: provisioning, deployment pipelines, DB administration"
+        ],
+        tags: ["Django DRF", "PostgreSQL", "Redis", "Celery", "Docker", "HTML/CSS/JS"],
+        link: null
+      }
+    ];
 
-  return (
-    <div className={"out" + (animated ? " animate-in" : "")}>
-      <div className="exp-list">
-        {experience.map((job, i) => (
-          <div
-            className={"exp-item" + (visible ? " visible" : "")}
-            key={i}
-            style={{ transitionDelay: `${i * 70}ms` }}
-          >
-            <div className="exp-head">
-              <span className="exp-role">{job.role}</span>
-              <span className="exp-company">@ {job.company}</span>
-              <span className="exp-dates">{job.dates}</span>
+    const certifications = [
+      { name: "Python with Django", issuer: "MindRisers Consortium" },
+      { name: "Django Developer Internship Certification", issuer: "MindRisers Consortium" },
+      { name: "AI with Python", issuer: "ProgrammingHub" },
+    ];
+
+    function useDoneAfterDelay(animated, onDone, ms = 400) {
+      const onDoneRef = useRef(onDone);
+      onDoneRef.current = onDone;
+
+      useEffect(() => {
+        if (!animated) return;
+        const t = setTimeout(() => onDoneRef.current?.(), ms);
+        return () => clearTimeout(t);
+      }, [animated, ms]);
+    }
+
+    function LoadingDots() {
+      const [n, setN] = useState(0);
+      useEffect(() => {
+        const t = setInterval(() => setN((v) => (v + 1) % 4), 280);
+        return () => clearInterval(t);
+      }, []);
+      return <span className="dots">{".".repeat(n)}</span>;
+    }
+
+    // Terminal-style popup: types the curl command, "loads" for 2-3s, then
+    // opens the target page in a new tab and closes itself.
+    function CommandOverlay({ command, url, onClose }) {
+      const [typed, setTyped] = useState("");
+      const [stage, setStage] = useState("typing"); // typing -> loading -> done
+
+      useEffect(() => {
+        let i = 0;
+        const t = setInterval(() => {
+          i += 1;
+          setTyped(command.slice(0, i));
+          if (i >= command.length) {
+            clearInterval(t);
+            setStage("loading");
+          }
+        }, 42);
+        return () => clearInterval(t);
+      }, [command]);
+
+      useEffect(() => {
+        if (stage !== "loading") return;
+        const wait = 2000 + Math.random() * 1000; // 2-3s
+        const t = setTimeout(() => {
+          setStage("done");
+          window.open(url, "_blank", "noopener");
+          const closeT = setTimeout(onClose, 500);
+          return () => clearTimeout(closeT);
+        }, wait);
+        return () => clearTimeout(t);
+      }, [stage, url, onClose]);
+
+      useEffect(() => {
+        const onKey = (e) => { if (e.key === "Escape") onClose(); };
+        window.addEventListener("keydown", onKey);
+        return () => window.removeEventListener("keydown", onKey);
+      }, [onClose]);
+
+      return (
+        <div className="cmd-overlay-backdrop" onClick={onClose}>
+          <div className="cmd-overlay" onClick={(e) => e.stopPropagation()}>
+            <div className="cmd-overlay-bar">
+              <span className="dot red"></span>
+              <span className="dot yellow"></span>
+              <span className="dot green"></span>
+              <span className="cmd-overlay-title">sajan@portfolio: ~</span>
             </div>
-            <ul className="exp-desc">
-              {job.bullets.map((b, j) => <li key={j}>{b}</li>)}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function StackSection({ animated, onDone }) {
-  const visible = useStaggerReveal(stack.length, STAGGER_MS, onDone, animated);
-  const cap = animated ? Math.min(visible, stack.length) : stack.length;
-
-  return (
-    <div className="out">
-      <div className="tech-grid">
-        {stack.map((t, i) => (
-          <div className={"tech" + (animated && i >= cap ? " stagger" : " visible")} key={i}>
-            {t.icon ? <i className={t.icon}></i> : <span className="fallback">{t.fallback}</span>}
-            <span className="label">{t.label}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ProjectsSection({ animated, onDone }) {
-  const [visible, setVisible] = useState(!animated);
-  useDoneAfterDelay(animated, onDone, 280);
-
-  useEffect(() => {
-    if (!animated) return;
-    const t = setTimeout(() => setVisible(true), 80);
-    return () => clearTimeout(t);
-  }, [animated]);
-
-  return (
-    <div className={"out" + (animated ? " animate-in" : "")}>
-      <div className="grid">
-        {projects.map((p, i) => (
-          <div
-            className={"card" + (visible ? " visible" : "")}
-            key={i}
-            style={{ transitionDelay: `${i * 50}ms` }}
-          >
-            <h3>{p.name}</h3>
-            <p>{p.desc}</p>
-            <ul>
-              {p.bullets.map((b, j) => <li key={j}>{b}</li>)}
-            </ul>
-            <div className="tags">
-              {p.tags.map((t, j) => <span className="tag" key={j}>{t}</span>)}
-            </div>
-            {p.link
-              ? <a className="link" href={p.link} target="_blank" rel="noreferrer">{p.link.replace("https://", "")} &rarr;</a>
-              : <span className="private">private / client project</span>}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function ResumeSection({ animated, onDone }) {
-  useDoneAfterDelay(animated, onDone, 120);
-  return (
-    <div className={"out" + (animated ? " animate-in" : "")}>
-      <div className="line comment">-rw-r--r--  1 sajan  staff  121K  resume.pdf</div>
-      <div className="btnrow">
-        <a className="btn" href="resume.pdf" download>&gt; download resume.pdf</a>
-        <a className="btn amber" href="https://mail.google.com/mail/?view=cm&to=kcsajan272@gmail.com" target="_blank" rel="noreferrer">&gt; contact me</a>
-      </div>
-    </div>
-  );
-}
-
-function CertsSection({ animated, onDone }) {
-  useDoneAfterDelay(animated, onDone, 120);
-  return (
-    <div className={"out" + (animated ? " animate-in" : "")}>
-      <ul className="cert-list">
-        {certifications.map((c, i) => (
-          <li key={i}>
-            <span className="cert-name">{c.name}</span>
-            <span className="cert-issuer">{c.issuer}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function EducationSection({ animated, onDone }) {
-  useDoneAfterDelay(animated, onDone, 120);
-  return (
-    <div className={"out edu-item" + (animated ? " animate-in" : "")}>
-      <div><span className="school">Bachelor of Computer Applications (BCA)</span></div>
-      <div className="place">Janamitri Multiple Campus — Kathmandu, Nepal</div>
-      <div style={{ marginTop: "6px" }}>Relevant coursework: Data Structures &amp; Algorithms, Database Management Systems, Software Engineering, Computer Networks, Object-Oriented Programming</div>
-    </div>
-  );
-}
-
-function ContactSection({ animated, onDone }) {
-  useDoneAfterDelay(animated, onDone, 120);
-  return (
-    <div className={"out" + (animated ? " animate-in" : "")}>
-      <div className="line">email &rarr; <a href="mailto:kcsajan272@gmail.com">kcsajan272@gmail.com</a></div>
-      <div className="line">phone &rarr; <a href="tel:+9779803593774">+977 9803593774</a></div>
-      <div className="line">github &rarr; <a href="https://github.com/sajankc999" target="_blank" rel="noreferrer">github.com/sajankc999</a></div>
-      <div className="line">linkedin &rarr; <a href="https://linkedin.com/in/sajan-kc-2a7819297" target="_blank" rel="noreferrer">linkedin.com/in/sajan-kc-2a7819297</a></div>
-    </div>
-  );
-}
-
-function SectionContent({ step, animated, onDone }) {
-  switch (step.type) {
-    case "intro": return <IntroSection animated={animated} onDone={onDone} />;
-    case "paragraph": return <ParagraphSection animated={animated} onDone={onDone} />;
-    case "experience": return <ExperienceSection animated={animated} onDone={onDone} />;
-    case "stack": return <StackSection animated={animated} onDone={onDone} />;
-    case "resume": return <ResumeSection animated={animated} onDone={onDone} />;
-    case "projects": return <ProjectsSection animated={animated} onDone={onDone} />;
-    case "certs": return <CertsSection animated={animated} onDone={onDone} />;
-    case "education": return <EducationSection animated={animated} onDone={onDone} />;
-    case "contact": return <ContactSection animated={animated} onDone={onDone} />;
-    default: return null;
-  }
-}
-
-function CompletedStep({ step }) {
-  const cls = step.id === "contact" ? "contact" : "";
-  return (
-    <section id={step.id} className={cls}>
-      <PromptLine cmd={step.command} />
-      <SectionContent step={step} animated={false} />
-    </section>
-  );
-}
-
-function ActiveStep({ step, onComplete, stepIndex }) {
-  const animate = stepIndex < INSTANT_AFTER;
-  const [phase, setPhase] = useState("typing");
-  const onCompleteRef = useRef(onComplete);
-  onCompleteRef.current = onComplete;
-
-  const advance = useCallback(() => {
-    setTimeout(() => setPhase("widget"), PAUSE_MS);
-  }, []);
-
-  const handleWidgetDone = useCallback(() => {
-    setTimeout(() => onCompleteRef.current(), 150);
-  }, []);
-
-  if (phase === "typing") {
-    return <TypedCommand text={step.command} onDone={advance} />;
-  }
-
-  return (
-    <section id={step.id}>
-      <PromptLine cmd={step.command} />
-      <SectionContent step={step} animated={animate} onDone={handleWidgetDone} />
-    </section>
-  );
-}
-
-function InteractiveConsole({ refs }) {
-  const [logEntries, setLogEntries] = useState([]);
-  const [input, setInput] = useState("");
-  const skipAutoScroll = useRef(false);
-  const navCommands = useRef(new Set(["about", "experience", "stack", "projects", "certs", "education", "contact"]));
-
-  const scrollTo = (key, label) => {
-    if (refs[key] && refs[key].current) {
-      refs[key].current.scrollIntoView({ behavior: "smooth" });
-    }
-    return label;
-  };
-
-  const commands = {
-    help: () => "available commands: about, experience, stack, projects, certs, education, resume, contact, clear, cat about.txt, one, eat",
-    about: () => scrollTo("about", "jumping to about.txt"),
-    experience: () => scrollTo("experience", "jumping to experience.log"),
-    stack: () => scrollTo("stack", "jumping to tech stack"),
-    projects: () => scrollTo("projects", "jumping to projects/"),
-    certs: () => scrollTo("certs", "jumping to certifications.log"),
-    education: () => scrollTo("education", "jumping to education.txt"),
-    resume: () => { window.location.href = "resume.pdf"; return "downloading resume.pdf ..."; },
-    contact: () => scrollTo("contact", "jumping to contact.txt"),
-    whoami: () => "sajan",
-    ls: () => "about  experience  stack  projects  certs  education  resume  contact",
-    clear: () => { setLogEntries([]); return null; },
-    "cat about.txt": () => ({ lines: aboutParagraphs, delay: 420 }),
-    one: () => ({ lines: ["one is printing...", "one finished printing output."], next: "eat", delay: 520 }),
-    eat: () => "eat command executed after one.",
-  };
-
-  const printCommentLines = (lines, delay = 420, onComplete) => {
-    const printLine = (index) => {
-      if (index >= lines.length) {
-        onComplete?.();
-        return;
-      }
-      setLogEntries((prev) => [...prev, { text: lines[index], cls: "comment" }]);
-      setTimeout(() => printLine(index + 1), delay);
-    };
-    printLine(0);
-  };
-
-  const runConsoleCommand = (cmd, auto = false) => {
-    const raw = cmd.trim();
-    if (!raw) return;
-    const lower = raw.toLowerCase();
-    const command = commands[lower];
-
-    setLogEntries((prev) => [...prev, { text: "sajan@portfolio:~$ " + raw, cls: "prompt" }]);
-
-    if (!command) {
-      setLogEntries((prev) => [...prev, { text: `command not found: ${raw}. type 'help'`, cls: "comment" }]);
-      return;
-    }
-
-    const result = command();
-    const scheduleNext = (next) => {
-      if (next) {
-        setTimeout(() => runConsoleCommand(next, true), 180);
-      }
-    };
-
-    if (typeof result === "string") {
-      setLogEntries((prev) => [...prev, { text: result, cls: "comment" }]);
-      return;
-    }
-
-    if (Array.isArray(result)) {
-      printCommentLines(result, 120, () => scheduleNext(null));
-      return;
-    }
-
-    if (result && typeof result === "object") {
-      const lines = result.lines ?? (result.text ? [result.text] : []);
-      const delay = result.delay ?? 120;
-
-      if (lines.length) {
-        printCommentLines(lines, delay, () => scheduleNext(result.next));
-        return;
-      }
-
-      if (result.text) {
-        setLogEntries((prev) => [...prev, { text: result.text, cls: "comment" }]);
-      }
-
-      scheduleNext(result.next);
-    }
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key !== "Enter") return;
-    const raw = input.trim();
-    if (!raw) return;
-    if (navCommands.current.has(raw.toLowerCase())) {
-      skipAutoScroll.current = true;
-    }
-    runConsoleCommand(raw);
-    setInput("");
-  };
-
-  useEffect(() => {
-    if (skipAutoScroll.current) {
-      skipAutoScroll.current = false;
-      return;
-    }
-    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
-  }, [logEntries]);
-
-  return (
-    <section id="console" className="console">
-      <div id="log">
-        {logEntries.map((e, i) => <div className={"line " + e.cls} key={i}>{e.text}</div>)}
-      </div>
-      <div className="inputline">
-        <span className="prompt"><span className="path">sajan@portfolio</span><span className="sym">:~$</span></span>
-        <input
-          type="text"
-          autoComplete="off"
-          spellCheck="false"
-          placeholder="type 'help'"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
-        <span className="cursor"></span>
-      </div>
-      <div className="hint">try: help, about, experience, stack, projects, certs, education, resume, contact, clear</div>
-    </section>
-  );
-}
-
-function App() {
-  const refs = {
-    about: useRef(null),
-    experience: useRef(null),
-    stack: useRef(null),
-    resume: useRef(null),
-    projects: useRef(null),
-    certs: useRef(null),
-    education: useRef(null),
-    contact: useRef(null),
-    intro: useRef(null),
-  };
-
-  const introStep = sequence[0];
-  const restSteps = sequence.slice(1);
-
-  const [bootComplete, setBootComplete] = useState(false);
-  const [introDone, setIntroDone] = useState(false);
-  const [completed, setCompleted] = useState({});
-  const [activeIndex, setActiveIndex] = useState(0); // index into restSteps currently allowed to run
-
-  const markStepComplete = useCallback((id) => {
-    setCompleted((prev) => ({ ...prev, [id]: true }));
-  }, []);
-
-  const skipAll = useCallback(() => {
-    setBootComplete(true);
-    setIntroDone(true);
-    markStepComplete("intro");
-    setActiveIndex(restSteps.length);
-  }, [markStepComplete, restSteps.length]);
-
-  const handleIntroComplete = useCallback(() => {
-    setIntroDone(true);
-    markStepComplete("intro");
-  }, [markStepComplete]);
-
-  useEffect(() => {
-    if (introDone) return;
-    const onKey = (e) => {
-      if (e.key === "Escape" || e.key === " " || e.key === "Enter") skipAll();
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [introDone, skipAll]);
-
-  return (
-    <div className={"crt" + (introDone ? "" : " size-locked")}>
-      <div className="titlebar">
-        <span className="dot red"></span>
-        <span className="dot yellow"></span>
-        <span className="dot green"></span>
-        <span className="label">sajan@portfolio: ~</span>
-      </div>
-
-      <div className="screen">
-        {!bootComplete && (
-          <BootSequence onComplete={() => setBootComplete(true)} onSkip={skipAll} />
-        )}
-
-        {bootComplete && !introDone && (
-          <button type="button" className="skip-btn" onClick={skipAll}>skip intro →</button>
-        )}
-
-        {bootComplete && !introDone && (
-          <div ref={refs.intro}>
-            <ActiveStep
-              step={introStep}
-              stepIndex={0}
-              onComplete={handleIntroComplete}
-            />
-          </div>
-        )}
-
-        {bootComplete && introDone && (
-          <div ref={refs.intro}>
-            <CompletedStep step={introStep} />
-          </div>
-        )}
-
-        {/* Only the current step is ever "live" — earlier ones are already
-            printed statically, later ones aren't mounted at all yet. Each
-            step must finish completely before the next one starts. */}
-        {bootComplete && introDone && restSteps.map((step, idx) => {
-          if (idx > activeIndex) return null;
-          return (
-            <div key={step.id} ref={refs[step.id]}>
-              {idx < activeIndex ? (
-                <CompletedStep step={step} />
-              ) : (
-                <ScrollStep
-                  step={step}
-                  onComplete={() => {
-                    markStepComplete(step.id);
-                    setActiveIndex((v) => Math.max(v, idx + 1));
-                  }}
-                />
+            <div className="cmd-overlay-body">
+              <div className="line prompt">
+                <span className="path">sajan@portfolio</span><span className="sym">:~$</span> {typed}
+                {stage === "typing" && <span className="cursor" />}
+              </div>
+              {stage !== "typing" && (
+                <div className="line comment">
+                  {stage === "loading"
+                    ? <>connecting to my-domain<LoadingDots /></>
+                    : "→ 200 OK — opening in new tab"}
+                </div>
               )}
             </div>
-          );
-        })}
-
-        {bootComplete && introDone && <InteractiveConsole refs={refs} />}
-      </div>
-    </div>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
-
-(function startMatrix() {
-  const canvas = document.getElementById("matrix-canvas");
-  if (!canvas) return;
-  const ctx = canvas.getContext("2d");
-  const letters = "0123456789".split("");
-  let fontSize = 14;
-  const columns = [];
-
-  const resize = () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    fontSize = Math.max(12, Math.min(20, window.innerWidth / 80));
-    const cols = Math.floor(canvas.width / fontSize);
-    columns.length = cols;
-    for (let i = 0; i < cols; i++) {
-      columns[i] = columns[i] || 1;
+          </div>
+        </div>
+      );
     }
-  };
 
-  const draw = () => {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.12)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = "rgba(122, 186, 255, 0.4)";
-    ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
-    columns.forEach((y, index) => {
-      const text = letters[Math.floor(Math.random() * letters.length)];
-      const x = index * fontSize;
-      ctx.fillText(text, x, y * fontSize);
-      if (y * fontSize > canvas.height && Math.random() > 0.975) {
-        columns[index] = 0;
+    function MetricCard({ m, display }) {
+      const [showTip, setShowTip] = useState(false);
+      const [running, setRunning] = useState(false);
+
+      if (!m.command) {
+        return (
+          <div className="metric">
+            <div className="val">{display}</div>
+            <div className="lbl">{m.label}</div>
+          </div>
+        );
       }
-      columns[index]++;
-    });
-    requestAnimationFrame(draw);
-  };
 
-  window.addEventListener("resize", resize);
-  resize();
-  draw();
-})();
-</script>
+      return (
+        <>
+          <div
+            className="metric interactive"
+            role="button"
+            tabIndex={0}
+            onMouseEnter={() => setShowTip(true)}
+            onMouseLeave={() => setShowTip(false)}
+            onFocus={() => setShowTip(true)}
+            onBlur={() => setShowTip(false)}
+            onClick={() => setRunning(true)}
+            onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setRunning(true); } }}
+          >
+            <div className="val">{display}</div>
+            <div className="lbl">{m.label}</div>
+            {showTip && !running && (
+              <div className="metric-tip">
+                {m.detail}
+                <span className="hint">click to run breakdown →</span>
+              </div>
+            )}
+          </div>
+          {running && ReactDOM.createPortal(
+            <CommandOverlay command={m.command} url={m.url} onClose={() => setRunning(false)} />,
+            document.body
+          )}
+        </>
+      );
+    }
+
+    function IntroSection({ animated, onDone }) {
+      const onDoneRef = useRef(onDone);
+      onDoneRef.current = onDone;
+
+      useEffect(() => {
+        if (!animated) { onDoneRef.current?.(); return; }
+        const t = setTimeout(() => onDoneRef.current?.(), 900);
+        return () => clearTimeout(t);
+      }, [animated]);
+
+      if (!animated) {
+        return (
+          <>
+            <div className="name">Sajan K.C.</div>
+            <div className="role">Backend Software Engineer — Python / Django / Distributed Systems</div>
+            <div className="meta-row">
+              <span>Kathmandu, Nepal · Open for work and collabration</span>
+              <a href="tel:+9779803593774">+977 9803593774</a>
+              <a href="mailto:kcsajan272@gmail.com">kcsajan272@gmail.com</a>
+              <a href="https://github.com/sajankc999" target="_blank" rel="noreferrer">github.com/sajankc999</a>
+              <a href="https://linkedin.com/in/sajan-kc-2a7819297" target="_blank" rel="noreferrer">linkedin.com/in/sajan-kc-2a7819297</a>
+            </div>
+            <div className="metrics">
+              {metrics.map((m, i) => (
+                <MetricCard m={m} display={`${m.value}${m.suffix}`} key={i} />
+              ))}
+            </div>
+          </>
+        );
+      }
+
+      return (
+        <div className="animate-in">
+          <div className="name">
+            <Typewriter text="Sajan K.C." speed={28} />
+          </div>
+          <div className="role">Backend Software Engineer — Python / Django / Distributed Systems</div>
+          <div className="meta-row">
+            <span>Kathmandu, Nepal · Open to Remote</span>
+            <a href="tel:+9779803593774">+977 9803593774</a>
+            <a href="mailto:kcsajan272@gmail.com">kcsajan272@gmail.com</a>
+            <a href="https://github.com/sajankc999" target="_blank" rel="noreferrer">github.com/sajankc999</a>
+            <a href="https://linkedin.com/in/sajan-kc-2a7819297" target="_blank" rel="noreferrer">linkedin.com/in/sajan-kc-2a7819297</a>
+          </div>
+          <div className="metrics">
+            {metrics.map((m, i) => (
+              <MetricCard
+                m={m}
+                display={<CountUp value={m.value} suffix={m.suffix} duration={600} />}
+                key={i}
+              />
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function ParagraphSection({ animated, onDone }) {
+      useDoneAfterDelay(animated, onDone, 180);
+      return (
+        <div className={"out bio" + (animated ? " animate-in" : "")}>
+          {aboutParagraphs.map((p, i) => <p key={i}>{p}</p>)}
+        </div>
+      );
+    }
+
+    function ExperienceSection({ animated, onDone }) {
+      const [visible, setVisible] = useState(!animated);
+      useDoneAfterDelay(animated, onDone, 220);
+
+      useEffect(() => {
+        if (!animated) return;
+        const t = setTimeout(() => setVisible(true), 60);
+        return () => clearTimeout(t);
+      }, [animated]);
+
+      return (
+        <div className={"out" + (animated ? " animate-in" : "")}>
+          <div className="exp-list">
+            {experience.map((job, i) => (
+              <div
+                className={"exp-item" + (visible ? " visible" : "")}
+                key={i}
+                style={{ transitionDelay: `${i * 70}ms` }}
+              >
+                <div className="exp-head">
+                  <span className="exp-role">{job.role}</span>
+                  <span className="exp-company">@ {job.company}</span>
+                  <span className="exp-dates">{job.dates}</span>
+                </div>
+                <ul className="exp-desc">
+                  {job.bullets.map((b, j) => <li key={j}>{b}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function StackSection({ animated, onDone }) {
+      const visible = useStaggerReveal(stack.length, STAGGER_MS, onDone, animated);
+      const cap = animated ? Math.min(visible, stack.length) : stack.length;
+
+      return (
+        <div className="out">
+          <div className="tech-grid">
+            {stack.map((t, i) => (
+              <div className={"tech" + (animated && i >= cap ? " stagger" : " visible")} key={i}>
+                {t.icon ? <i className={t.icon}></i> : <span className="fallback">{t.fallback}</span>}
+                <span className="label">{t.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function ProjectsSection({ animated, onDone }) {
+      const [visible, setVisible] = useState(!animated);
+      useDoneAfterDelay(animated, onDone, 280);
+
+      useEffect(() => {
+        if (!animated) return;
+        const t = setTimeout(() => setVisible(true), 80);
+        return () => clearTimeout(t);
+      }, [animated]);
+
+      return (
+        <div className={"out" + (animated ? " animate-in" : "")}>
+          <div className="grid">
+            {projects.map((p, i) => (
+              <div
+                className={"card" + (visible ? " visible" : "")}
+                key={i}
+                style={{ transitionDelay: `${i * 50}ms` }}
+              >
+                <h3>{p.name}</h3>
+                <p>{p.desc}</p>
+                <ul>
+                  {p.bullets.map((b, j) => <li key={j}>{b}</li>)}
+                </ul>
+                <div className="tags">
+                  {p.tags.map((t, j) => <span className="tag" key={j}>{t}</span>)}
+                </div>
+                {p.link
+                  ? <a className="link" href={p.link} target="_blank" rel="noreferrer">{p.link.replace("https://", "")} &rarr;</a>
+                  : <span className="private">private / client project</span>}
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    function ResumeSection({ animated, onDone }) {
+      useDoneAfterDelay(animated, onDone, 120);
+      return (
+        <div className={"out" + (animated ? " animate-in" : "")}>
+          <div className="line comment">-rw-r--r--  1 sajan  staff  121K  resume.pdf</div>
+          <div className="btnrow">
+            <a className="btn" href="resume.pdf" download>&gt; download resume.pdf</a>
+            <a className="btn amber" href="https://mail.google.com/mail/?view=cm&to=kcsajan272@gmail.com" target="_blank" rel="noreferrer">&gt; contact me</a>
+          </div>
+        </div>
+      );
+    }
+
+    function CertsSection({ animated, onDone }) {
+      useDoneAfterDelay(animated, onDone, 120);
+      return (
+        <div className={"out" + (animated ? " animate-in" : "")}>
+          <ul className="cert-list">
+            {certifications.map((c, i) => (
+              <li key={i}>
+                <span className="cert-name">{c.name}</span>
+                <span className="cert-issuer">{c.issuer}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
+    }
+
+    function EducationSection({ animated, onDone }) {
+      useDoneAfterDelay(animated, onDone, 120);
+      return (
+        <div className={"out edu-item" + (animated ? " animate-in" : "")}>
+          <div><span className="school">Bachelor of Computer Applications (BCA)</span></div>
+          <div className="place">Janamitri Multiple Campus — Kathmandu, Nepal</div>
+          <div style={{ marginTop: "6px" }}>Relevant coursework: Data Structures &amp; Algorithms, Database Management Systems, Software Engineering, Computer Networks, Object-Oriented Programming</div>
+        </div>
+      );
+    }
+
+    function ContactSection({ animated, onDone }) {
+      useDoneAfterDelay(animated, onDone, 120);
+      return (
+        <div className={"out" + (animated ? " animate-in" : "")}>
+          <div className="line">email &rarr; <a href="mailto:kcsajan272@gmail.com">kcsajan272@gmail.com</a></div>
+          <div className="line">phone &rarr; <a href="tel:+9779803593774">+977 9803593774</a></div>
+          <div className="line">github &rarr; <a href="https://github.com/sajankc999" target="_blank" rel="noreferrer">github.com/sajankc999</a></div>
+          <div className="line">linkedin &rarr; <a href="https://linkedin.com/in/sajan-kc-2a7819297" target="_blank" rel="noreferrer">linkedin.com/in/sajan-kc-2a7819297</a></div>
+        </div>
+      );
+    }
+
+    function SectionContent({ step, animated, onDone }) {
+      switch (step.type) {
+        case "intro": return <IntroSection animated={animated} onDone={onDone} />;
+        case "paragraph": return <ParagraphSection animated={animated} onDone={onDone} />;
+        case "experience": return <ExperienceSection animated={animated} onDone={onDone} />;
+        case "stack": return <StackSection animated={animated} onDone={onDone} />;
+        case "resume": return <ResumeSection animated={animated} onDone={onDone} />;
+        case "projects": return <ProjectsSection animated={animated} onDone={onDone} />;
+        case "certs": return <CertsSection animated={animated} onDone={onDone} />;
+        case "education": return <EducationSection animated={animated} onDone={onDone} />;
+        case "contact": return <ContactSection animated={animated} onDone={onDone} />;
+        default: return null;
+      }
+    }
+
+    function CompletedStep({ step }) {
+      const cls = step.id === "contact" ? "contact" : "";
+      return (
+        <section id={step.id} className={cls}>
+          <PromptLine cmd={step.command} />
+          <SectionContent step={step} animated={false} />
+        </section>
+      );
+    }
+
+    function ActiveStep({ step, onComplete, stepIndex }) {
+      const animate = stepIndex < INSTANT_AFTER;
+      const [phase, setPhase] = useState("typing");
+      const onCompleteRef = useRef(onComplete);
+      onCompleteRef.current = onComplete;
+
+      const advance = useCallback(() => {
+        setTimeout(() => setPhase("widget"), PAUSE_MS);
+      }, []);
+
+      const handleWidgetDone = useCallback(() => {
+        setTimeout(() => onCompleteRef.current(), 150);
+      }, []);
+
+      if (phase === "typing") {
+        return <TypedCommand text={step.command} onDone={advance} />;
+      }
+
+      return (
+        <section id={step.id}>
+          <PromptLine cmd={step.command} />
+          <SectionContent step={step} animated={animate} onDone={handleWidgetDone} />
+        </section>
+      );
+    }
+
+    function InteractiveConsole({ refs }) {
+      const [logEntries, setLogEntries] = useState([]);
+      const [input, setInput] = useState("");
+      const skipAutoScroll = useRef(false);
+      const navCommands = useRef(new Set(["about", "experience", "stack", "projects", "certs", "education", "contact"]));
+
+      const scrollTo = (key, label) => {
+        if (refs[key] && refs[key].current) {
+          refs[key].current.scrollIntoView({ behavior: "smooth" });
+        }
+        return label;
+      };
+
+      const commands = {
+        help: () => "available commands: about, experience, stack, projects, certs, education, resume, contact, clear, cat about.txt, one, eat",
+        about: () => scrollTo("about", "jumping to about.txt"),
+        experience: () => scrollTo("experience", "jumping to experience.log"),
+        stack: () => scrollTo("stack", "jumping to tech stack"),
+        projects: () => scrollTo("projects", "jumping to projects/"),
+        certs: () => scrollTo("certs", "jumping to certifications.log"),
+        education: () => scrollTo("education", "jumping to education.txt"),
+        resume: () => { window.location.href = "resume.pdf"; return "downloading resume.pdf ..."; },
+        contact: () => scrollTo("contact", "jumping to contact.txt"),
+        whoami: () => "sajan",
+        ls: () => "about  experience  stack  projects  certs  education  resume  contact",
+        clear: () => { setLogEntries([]); return null; },
+        "cat about.txt": () => ({ lines: aboutParagraphs, delay: 420 }),
+        one: () => ({ lines: ["one is printing...", "one finished printing output."], next: "eat", delay: 520 }),
+        eat: () => "eat command executed after one.",
+      };
+
+      const printCommentLines = (lines, delay = 420, onComplete) => {
+        const printLine = (index) => {
+          if (index >= lines.length) {
+            onComplete?.();
+            return;
+          }
+          setLogEntries((prev) => [...prev, { text: lines[index], cls: "comment" }]);
+          setTimeout(() => printLine(index + 1), delay);
+        };
+        printLine(0);
+      };
+
+      const runConsoleCommand = (cmd, auto = false) => {
+        const raw = cmd.trim();
+        if (!raw) return;
+        const lower = raw.toLowerCase();
+        const command = commands[lower];
+
+        setLogEntries((prev) => [...prev, { text: "sajan@portfolio:~$ " + raw, cls: "prompt" }]);
+
+        if (!command) {
+          setLogEntries((prev) => [...prev, { text: `command not found: ${raw}. type 'help'`, cls: "comment" }]);
+          return;
+        }
+
+        const result = command();
+        const scheduleNext = (next) => {
+          if (next) {
+            setTimeout(() => runConsoleCommand(next, true), 180);
+          }
+        };
+
+        if (typeof result === "string") {
+          setLogEntries((prev) => [...prev, { text: result, cls: "comment" }]);
+          return;
+        }
+
+        if (Array.isArray(result)) {
+          printCommentLines(result, 120, () => scheduleNext(null));
+          return;
+        }
+
+        if (result && typeof result === "object") {
+          const lines = result.lines ?? (result.text ? [result.text] : []);
+          const delay = result.delay ?? 120;
+
+          if (lines.length) {
+            printCommentLines(lines, delay, () => scheduleNext(result.next));
+            return;
+          }
+
+          if (result.text) {
+            setLogEntries((prev) => [...prev, { text: result.text, cls: "comment" }]);
+          }
+
+          scheduleNext(result.next);
+        }
+      };
+
+      const handleKeyDown = (e) => {
+        if (e.key !== "Enter") return;
+        const raw = input.trim();
+        if (!raw) return;
+        if (navCommands.current.has(raw.toLowerCase())) {
+          skipAutoScroll.current = true;
+        }
+        runConsoleCommand(raw);
+        setInput("");
+      };
+
+      useEffect(() => {
+        if (skipAutoScroll.current) {
+          skipAutoScroll.current = false;
+          return;
+        }
+        window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+      }, [logEntries]);
+
+      return (
+        <section id="console" className="console">
+          <div id="log">
+            {logEntries.map((e, i) => <div className={"line " + e.cls} key={i}>{e.text}</div>)}
+          </div>
+          <div className="inputline">
+            <span className="prompt"><span className="path">sajan@portfolio</span><span className="sym">:~$</span></span>
+            <input
+              type="text"
+              autoComplete="off"
+              spellCheck="false"
+              placeholder="type 'help'"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+            <span className="cursor"></span>
+          </div>
+          <div className="hint">try: help, about, experience, stack, projects, certs, education, resume, contact, clear</div>
+        </section>
+      );
+    }
+
+    function App() {
+      const refs = {
+        about: useRef(null),
+        experience: useRef(null),
+        stack: useRef(null),
+        resume: useRef(null),
+        projects: useRef(null),
+        certs: useRef(null),
+        education: useRef(null),
+        contact: useRef(null),
+        intro: useRef(null),
+      };
+
+      const introStep = sequence[0];
+      const restSteps = sequence.slice(1);
+
+      const [bootComplete, setBootComplete] = useState(false);
+      const [introDone, setIntroDone] = useState(false);
+      const [completed, setCompleted] = useState({});
+      const [activeIndex, setActiveIndex] = useState(0); // index into restSteps currently allowed to run
+
+      const markStepComplete = useCallback((id) => {
+        setCompleted((prev) => ({ ...prev, [id]: true }));
+      }, []);
+
+      const skipAll = useCallback(() => {
+        setBootComplete(true);
+        setIntroDone(true);
+        markStepComplete("intro");
+        setActiveIndex(restSteps.length);
+      }, [markStepComplete, restSteps.length]);
+
+      const handleIntroComplete = useCallback(() => {
+        setIntroDone(true);
+        markStepComplete("intro");
+      }, [markStepComplete]);
+
+      useEffect(() => {
+        if (introDone) return;
+        const onKey = (e) => {
+          if (e.key === "Escape" || e.key === " " || e.key === "Enter") skipAll();
+        };
+        window.addEventListener("keydown", onKey);
+        return () => window.removeEventListener("keydown", onKey);
+      }, [introDone, skipAll]);
+
+      return (
+        <div className={"crt" + (introDone ? "" : " size-locked")}>
+          <div className="titlebar">
+            <span className="dot red"></span>
+            <span className="dot yellow"></span>
+            <span className="dot green"></span>
+            <span className="label">sajan@portfolio: ~</span>
+          </div>
+
+          <div className="screen">
+            {!bootComplete && (
+              <BootSequence onComplete={() => setBootComplete(true)} onSkip={skipAll} />
+            )}
+
+            {bootComplete && !introDone && (
+              <button type="button" className="skip-btn" onClick={skipAll}>skip intro →</button>
+            )}
+
+            {bootComplete && !introDone && (
+              <div ref={refs.intro}>
+                <ActiveStep
+                  step={introStep}
+                  stepIndex={0}
+                  onComplete={handleIntroComplete}
+                />
+              </div>
+            )}
+
+            {bootComplete && introDone && (
+              <div ref={refs.intro}>
+                <CompletedStep step={introStep} />
+              </div>
+            )}
+
+            {/* Only the current step is ever "live" — earlier ones are already
+            printed statically, later ones aren't mounted at all yet. Each
+            step must finish completely before the next one starts. */}
+            {bootComplete && introDone && restSteps.map((step, idx) => {
+              if (idx > activeIndex) return null;
+              return (
+                <div key={step.id} ref={refs[step.id]}>
+                  {idx < activeIndex ? (
+                    <CompletedStep step={step} />
+                  ) : (
+                    <ScrollStep
+                      step={step}
+                      onComplete={() => {
+                        markStepComplete(step.id);
+                        setActiveIndex((v) => Math.max(v, idx + 1));
+                      }}
+                    />
+                  )}
+                </div>
+              );
+            })}
+
+            {bootComplete && introDone && <InteractiveConsole refs={refs} />}
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+    (function startMatrix() {
+      const canvas = document.getElementById("matrix-canvas");
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      const letters = "0123456789".split("");
+      let fontSize = 14;
+      const columns = [];
+
+      const resize = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        fontSize = Math.max(12, Math.min(20, window.innerWidth / 80));
+        const cols = Math.floor(canvas.width / fontSize);
+        columns.length = cols;
+        for (let i = 0; i < cols; i++) {
+          columns[i] = columns[i] || 1;
+        }
+      };
+
+      const draw = () => {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.12)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = "rgba(122, 186, 255, 0.4)";
+        ctx.font = `${fontSize}px 'JetBrains Mono', monospace`;
+        columns.forEach((y, index) => {
+          const text = letters[Math.floor(Math.random() * letters.length)];
+          const x = index * fontSize;
+          ctx.fillText(text, x, y * fontSize);
+          if (y * fontSize > canvas.height && Math.random() > 0.975) {
+            columns[index] = 0;
+          }
+          columns[index]++;
+        });
+        requestAnimationFrame(draw);
+      };
+
+      window.addEventListener("resize", resize);
+      resize();
+      draw();
+    })();
+  </script>
 </body>
+
 </html>

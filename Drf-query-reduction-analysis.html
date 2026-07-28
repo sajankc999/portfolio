@@ -1,0 +1,109 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'><title>Django & DRF Query Reduction Report</title>
+<style>
+body{font-family:Arial,sans-serif;max-width:1000px;margin:40px auto;line-height:1.6;padding:20px}
+h1,h2,h3{color:#234} code,pre{background:#f4f4f4;padding:2px 4px} pre{padding:10px;overflow:auto}
+table{border-collapse:collapse;width:100%}th,td{border:1px solid #ccc;padding:8px}th{background:#eee}
+</style></head><body>
+<h1>Analysis Report: Query Reduction in Django & Django REST Framework (DRF)</h1>
+<h2>Executive Summary</h2>
+<p>This report covers common causes of excessive database queries, optimization techniques, indexing strategies, and best practices for improving Django and DRF performance.</p>
+
+<h2>1. Common Causes of Excessive Queries</h2>
+<ul>
+<li>N+1 query problem</li>
+<li>Reverse relationship lookups</li>
+<li>Nested serializers</li>
+<li>SerializerMethodField database access</li>
+<li>Repeated queryset evaluation</li>
+</ul>
+
+<h2>2. Query Reduction Techniques</h2>
+<table>
+<tr><th>Technique</th><th>Purpose</th></tr>
+<tr><td>select_related()</td><td>Reduce queries for ForeignKey and OneToOne relationships using SQL JOINs.</td></tr>
+<tr><td>prefetch_related()</td><td>Efficiently load ManyToMany and reverse ForeignKey relations.</td></tr>
+<tr><td>Prefetch()</td><td>Prefetch filtered/custom querysets.</td></tr>
+<tr><td>only()/defer()</td><td>Load only required columns.</td></tr>
+<tr><td>values()/values_list()</td><td>Avoid model instantiation overhead.</td></tr>
+<tr><td>annotate()</td><td>Perform aggregations in SQL instead of Python loops.</td></tr>
+<tr><td>aggregate()</td><td>Database-side calculations.</td></tr>
+<tr><td>exists()</td><td>Cheaper existence check than count() &gt; 0.</td></tr>
+<tr><td>bulk_create()/bulk_update()</td><td>Reduce write queries.</td></tr>
+<tr><td>update()/delete()</td><td>Single SQL statement for mass operations.</td></tr>
+</table>
+
+<h2>3. DRF Optimizations</h2>
+<ul>
+<li>Optimize get_queryset() with select_related() and prefetch_related().</li>
+<li>Avoid database queries inside SerializerMethodField.</li>
+<li>Use annotate() for computed values.</li>
+<li>Serialize querysets using many=True instead of looping.</li>
+</ul>
+
+<h2>4. Query Analysis Tools</h2>
+<ul>
+<li>Django Debug Toolbar</li>
+<li>django-silk</li>
+<li>connection.queries</li>
+<li>QuerySet.explain()</li>
+<li>EXPLAIN ANALYZE (PostgreSQL)</li>
+</ul>
+
+<h2>5. Database Indexing</h2>
+<h3>What is an Index?</h3>
+<p>An index is a data structure that allows the database to locate rows efficiently without scanning the entire table.</p>
+
+<h3>Advantages</h3>
+<ul>
+<li>Faster WHERE filtering</li>
+<li>Faster JOIN operations</li>
+<li>Improved ORDER BY performance</li>
+<li>Better scalability on large tables</li>
+<li>Reduced query execution time</li>
+</ul>
+
+<h3>Disadvantages</h3>
+<ul>
+<li>Consumes additional disk space</li>
+<li>Slower INSERT operations</li>
+<li>Slower UPDATE operations on indexed columns</li>
+<li>Slower DELETE operations</li>
+<li>Maintenance overhead (VACUUM/REINDEX)</li>
+<li>Too many indexes reduce write performance</li>
+</ul>
+
+<h3>Django Index Examples</h3>
+<pre><code>class Employee(models.Model):
+    department = models.CharField(max_length=50, db_index=True)
+
+class Meta:
+    indexes = [
+        models.Index(fields=["department", "salary"])
+    ]</code></pre>
+
+<h2>6. Best Practices</h2>
+<ul>
+<li>Use select_related() for ForeignKey and OneToOne.</li>
+<li>Use prefetch_related() for ManyToMany and reverse ForeignKey.</li>
+<li>Index frequently filtered, joined, and ordered columns.</li>
+<li>Avoid queries inside serializers.</li>
+<li>Use annotate() instead of repeated count().</li>
+<li>Use exists() instead of count() &gt; 0.</li>
+<li>Profile using Debug Toolbar and explain().</li>
+<li>Cache expensive queries and API responses.</li>
+</ul>
+
+<h2>7. Sample Performance Improvement</h2>
+<table>
+<tr><th>Metric</th><th>Before</th><th>After</th></tr>
+<tr><td>SQL Queries</td><td>301</td><td>3</td></tr>
+<tr><td>Response Time</td><td>1450 ms</td><td>180 ms</td></tr>
+<tr><td>Database CPU</td><td>85%</td><td>28%</td></tr>
+<tr><td>Memory</td><td>210 MB</td><td>120 MB</td></tr>
+</table>
+
+<h2>Conclusion</h2>
+<p>Combining ORM optimizations, efficient serializer design, proper indexing, and query analysis significantly reduces database load and improves API scalability in Django and DRF applications.</p>
+<p><i>-By Sajan k.c.</i></p>
+</body>
+</html>

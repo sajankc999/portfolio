@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tester Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #495b79, #182a52);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+
+        h2 {
+            color: #0f172a;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        p {
+            color: #64748b;
+            font-size: 15px;
+            margin-bottom: 28px;
+        }
+
+
+        .app-name {
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 15px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        button {
+            background: #3b82f6;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+
+        button:hover {
+            background: #2563eb;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+.card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 40px 32px;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.app-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+.app-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f1f5f9;
+    border-radius: 10px;
+    padding: 14px 18px;
+    flex: 1 1 200px;
+}
+    </style>
+</head>
+<body>
+<div class="card">
+    <h2>Are you a tester?</h2>
+    <p>Download ongoing projects</p>
+    <div class="app-list">
+        <div class="app-item">
+            <span class="app-name">Weather App</span>
+            <a href="BetaTestV1.0.0.apk">
+                <button>Download</button>
+            </a>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

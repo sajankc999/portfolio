@@ -853,9 +853,9 @@
       { text: "", cls: "boot-line" },
     ];
 
-    const aboutParagraphs = [
-      "Backend Software Engineer with 3+ years of production experience building and owning distributed backend systems across government, education, and enterprise domains. Designed event-driven architectures for platforms serving 1000+ users, delivering 20–30% performance gains through query optimization and caching.",
-    ];
+const aboutParagraphs = [
+  "Backend Software Engineer but i build softwares in any forms to assist/aid me.",
+];
 
     const metrics = [
       { value: 3, suffix: "+", label: "years production" },
@@ -1182,103 +1182,41 @@
       { icon: "devicon-linux-plain colored", label: "Linux" },
     ];
 
-    const projects = [
-      {
-        name: "Price Picker Nepal",
-        desc: "Pick your price from Nepal's most popular tech shop in single search.",
-        bullets: [
-          "Scraping time reduced to 120 sec to 5-10sec",
-          "Cached searched items preserving server ram and processors.",
-          "User friendly UI and fast service.",
-        ],
-        tags: ["Flask", "Docker","HTML,CSS,JS"],
-        link: "https://pricepicker.sajankc99.com.np"
-      },
-      {
-        name: "RD Education Group — CRM & Student Portal",
-        desc: "Modular multi-tier CRM: agent dashboards, document workflows, student lifecycle management.",
-        bullets: [
-          "Real-time cross-role chat/notifications via Redis Pub/Sub — near-instant delivery, no polling",
-          "JWT-secured API with granular multi-role access control",
-          "Zero-downtime CI/CD releases across environments"
-        ],
-        tags: ["Django DRF", "PostgreSQL", "Redis", "RabbitMQ", "Celery", "Docker"],
-        link: "https://rdeducationgroup.com"
-      },
-      {
-        name: "Apex Education — Mock Test & School Management",
-        desc: "Dynamic mock-test generation engine: randomized, template-based papers per session.",
-        bullets: [
-          "DB normalization + indexing for concurrent exam-load reads",
-          "Redis + RabbitMQ decouple test-session processing from request cycle"
-        ],
-        tags: ["Django DRF", "PostgreSQL", "Redis", "Celery", "Docker"],
-        link: null
-      },
-      // {
-      //   name: "BodhiTreks — Travel E-Commerce Platform",
-      //   desc: "Booking platform with third-party payment integration for online travel bookings.",
-      //   bullets: [
-      //     "Integrated SmartGateway for secure booking transactions",
-      //     "SMS/OTP authentication for onboarding security",
-      //     "Optimized booking queries; enhanced admin via django-jazzmin"
-      //   ],
-      //   tags: ["Django DRF", "PostgreSQL", "Redis", "Celery", "Docker"],
-      //   link: "https://bodhitreks.com"
-      // },
-      {
-        name: "Laticrete CRM — B2B Product Survey System",
-        desc: "Regional B2B survey platform for a multinational construction manufacturer (Africa, America, Nepal).",
-        bullets: [
-          "Hierarchical, region-scoped RBAC translated from layered org permission requirements",
-          "Real-time notifications, deadline reminders; tuned RabbitMQ throughput for concurrent regional submissions"
-        ],
-        tags: ["Django DRF", "PostgreSQL", "Redis", "RabbitMQ", "Celery", "Docker"],
-        link: null
-      },
-      {
-        name: "WWF Depository — Regional Data & Reporting Platform",
-        desc: "Data entry and achievement reporting platform for 1000+ regional WWF employees.",
-        bullets: [
-          "Server-rendered dashboards, dynamic forms, region-scoped access control",
-          "Formatted CSV report generation validated with WWF stakeholders",
-          "Query optimization for responsive reports at scale"
-        ],
-        tags: ["Django DRF", "Django Templates", "PostgreSQL", "Redis", "Celery"],
-        link: "https://depositary.wwfnepal.org.np"
-      },
-      // {
-      //   name: "E.I.A / MOFE — Government Environmental Impact Portal",
-      //   desc: "Government portal for environmental impact assessment proposals across multiple ministries.",
-      //   bullets: [
-      //     "Proposal back-tracking across ministries; fine-grained role-permission system via Django Groups",
-      //     "Email/in-app notifications on proposal status changes",
-      //     "DB schema designed and optimized for multi-ministry workflows"
-      //   ],
-      //   tags: ["Django DRF", "PostgreSQL", "Redis", "Celery", "Docker"],
-      //   link: null
-      // },
-      {
-        name: "ICAN VLE — Virtual Learning Environment",
-        desc: "Study material upload pipeline with in-browser PDF rendering, commenting, and highlighting.",
-        bullets: [
-          "Integrated eSewa payment gateway for subscriptions",
-          "Managed CI/CD and deployment pipelines with zero downtime"
-        ],
-        tags: ["Django DRF", "PostgreSQL", "Redis", "Celery", "Docker"],
-        link: null
-      },
-      // {
-      //   name: "RedPanda — Regional CRM & Reporting Platform",
-      //   desc: "Data entry and reporting system for 1000+ staff with region-assigned access.",
-      //   bullets: [
-      //     "Structured form workflows, CSV report generation for operational tracking",
-      //     "End-to-end DevOps: provisioning, deployment pipelines, DB administration"
-      //   ],
-      //   tags: ["Django DRF", "PostgreSQL", "Redis", "Celery", "Docker", "HTML/CSS/JS"],
-      //   link: null
-      // }
-    ];
+const projects = [
+  {
+    name: "Price Picker Nepal",
+    desc: "Pick your affordable price across all top Computer selling parts all over Nepal in one click.",
+    bullets: [
+      "Search across 10+ Nepal's computer shops in less than 3 seconds.",
+      "Web browser caching for instant search when you come back again",
+      "Up to date live price and their availability."
+    ],
+    tags: ["HTML/CSS/JS", "Redis", "RabbitMQ", "flask", "Docker"],
+    link: "https://pricepicker.sajankc99.com.np"
+  },
+  {
+    name: "PathCast-Know the weather across your journey.",
+    desc: "Put in your start and end point and start your journey without unprepared rain or snowfall.",
+    bullets: [
+      "Fast weather forecast and accessible from anywhere.",
+      "Multi platform support."
+    ],
+    tags: ["Flutter", "Google maps", "Open street maps", "open weather map"],
+    link: "Email me to become a Tester or want to become a contributor."
+  },
+  {
+    name: "ScoreApp",
+    desc: "Multi Platform Desktop Tournament management software.",
+    bullets: [
+      "Fast fixture generation and easy UI",
+      "Multi Platform and offline use",
+      "Save and manage fixture schedules from one device"
+    ],
+    tags: ["React", "Electron", "Node"],
+    link: "Email me to become a Tester or want to be contributor."
+  },
+
+];
 
     const certifications = [
       { name: "Python with Django", issuer: "MindRisers Consortium" },
